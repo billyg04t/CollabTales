@@ -3,6 +3,8 @@ const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 const { buildSchema } = require('graphql');
 const bodyParser = require('body-parser');
+const authenticateToken = require('./auth');
+const generateToken = require('./generate');
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/collabtale', { useNewUrlParser: true, useUnifiedTopology: true });
 
