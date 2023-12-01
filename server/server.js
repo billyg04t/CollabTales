@@ -30,11 +30,24 @@ const contributions = [];
 
 // Define GraphQL Resolvers
 const root = {
-  contributions: () => contributions,
-  addContribution: ({ text, author }) => {
-    const newContribution = { id: contributions.length + 1, text, author };
-    contributions.push(newContribution);
-    return newContribution;
+  contributions: async () => {
+    try {
+      const contributions = await Contribution.find();
+      return contributions;
+    } catch (error) {
+      console.error('Error fetching contributions:', error.message);
+      throw new Error('Failed to fetch contributions');
+    }
+  },
+  addContribution: async ({ text, author }) => {
+    try {
+      const newContribution = new Contribution({ text, author });
+      await newContribution.save();
+      return newContribution;
+    } catch (error) {
+      console.error('Error adding contribution:', error.message);
+      throw new Error('Failed to add contribution');
+    }
   },
 };
 
@@ -48,6 +61,8 @@ app.post('/login', (req, res) => {
   const token = generateToken(userId);
   res.json({ token });
 });
+// Middleware
+app.use(bodyParser.json());
 
 // Set up GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
