@@ -41,6 +41,14 @@ const root = {
 // Create Express App
 const app = express();
 
+app.post('/login', (req, res) => {
+  // Implement your login logic, validate credentials, etc.
+  // If login is successful, generate and send a JWT token
+  const userId = 'some-user-id'; // Replace with the actual user ID
+  const token = generateToken(userId);
+  res.json({ token });
+});
+
 // Set up GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
   schema: schema,
