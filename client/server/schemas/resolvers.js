@@ -1,9 +1,9 @@
-const { Tech, Matchup } = require('../models');
+const { Stories, Matchup } = require('../models');
 
 const resolvers = {
   Query: {
-    tech: async () => {
-      return Tech.find({});
+    stories: async () => {
+      return Stories.find({});
     },
     matchups: async (parent, { _id }) => {
       const params = _id ? { _id } : {};
@@ -15,10 +15,10 @@ const resolvers = {
       const matchup = await Matchup.create(args);
       return matchup;
     },
-    createVote: async (parent, { _id, techNum }) => {
+    createVote: async (parent, { _id, storyNum }) => {
       const vote = await Matchup.findOneAndUpdate(
         { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
+        { $inc: { [`story${storyNum}_votes`]: 1 } },
         { new: true }
       );
       return vote;
