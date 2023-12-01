@@ -52,6 +52,9 @@ const root = {
 // Create Express App
 const app = express();
 
+// Middleware
+app.use(bodyParser.json());
+
 // Set up GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
   schema: schema,
