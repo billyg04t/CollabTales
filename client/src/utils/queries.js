@@ -1,5 +1,3 @@
-// queries.js
-
 import { gql } from '@apollo/client';
 
 // Query for user authentication
@@ -28,7 +26,6 @@ export const CONTRIBUTORS_QUERY = gql`
     contributors {
       _id
       name
-      // You can include additional contributor details here
     }
   }
 `;
@@ -40,9 +37,6 @@ export const CONTRIBUTIONS_QUERY = gql`
       _id
       content
       createdAt
-      // Include other relevant update details
     }
   }
 `;
-
-// Add more queries related to story matchups, contributions, etc., based on your schema
