@@ -1,23 +1,24 @@
 import { gql } from '@apollo/client';
 
-export const CREATE_MATCHUP = gql`
-  mutation createMatchup($tech1: String!, $tech2: String!) {
-    createMatchup(tech1: $tech1, tech2: $tech2) {
+// Mutation for adding a contribution to the story
+export const ADD_CONTRIBUTION = gql`
+  mutation addContribution($_id: String!, $content: String!) {
+    addContribution(_id: $_id, content: $content) {
       _id
-      tech1
-      tech2
+      content
+      createdAt
     }
   }
 `;
 
-export const CREATE_VOTE = gql`
-  mutation createVote($_id: String!, $techNum: Int!) {
-    createVote(_id: $_id, techNum: $techNum) {
+// Mutation for creating a new story
+export const CREATE_STORY = gql`
+  mutation createStory($title: String!, $initialContent: String!) {
+    createStory(title: $title, initialContent: $initialContent) {
       _id
-      tech1
-      tech2
-      tech1_votes
-      tech2_votes
+      title
     }
   }
 `;
+
+// Add more mutations as needed for your story assignment
