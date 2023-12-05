@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './client/src/pages/Home';
-import Vote from './client/src/pages/Vote'; // Adjust the path accordingly
+import Vote from './client/src/pages/Vote'; 
 import NotFound from './client/src/pages/NotFound';
 
 const App = () => {
