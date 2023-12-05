@@ -1,14 +1,27 @@
 const db = require('../config/connection');
-const { Tech } = require('../models');
+const { User, Story, Contribution } = require('../models');
 const cleanDB = require('./cleanDB');
 
-const techData = require('./techData.json');
+const userData = require('./userData.json');
+const storyData = require('./storyData.json');
+const contributionData = require('./contributionData.json');
 
 db.once('open', async () => {
-  await cleanDB('Tech', 'teches');
+  try {
+  await cleanDB('User', 'users');
+  await cleanDB('Contribution', 'contributions');
+  await cleanDB('Story', 'stories');
 
-  await Tech.insertMany(techData);
+  const users = await User.create(userData);
+  const story = await Story.create(storyData);
+  const contribution = await Contribution.create(contributionData);
 
-  console.log('Technologies seeded!');
+  //await Tech.insertMany(techData);
+
+  console.log('Data seeded successfully!');
   process.exit(0);
+} catch (error) {
+  console.error('Error seeding data:', error);
+  process.exit(1); 
+}
 });

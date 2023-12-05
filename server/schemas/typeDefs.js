@@ -12,7 +12,7 @@ const typeDefs = `
   type Contribution {
     _id: ID!
     user: User
-    story: Story
+    title: String
     content: String
     created_at: Date
   }
@@ -22,7 +22,6 @@ const typeDefs = `
     title: String!
     content: String!
     genre: String!
-    tags: [ID] # Assuming Tag is a simple ID reference
     author: User
     contributions: [Contribution]
     created_at: Date
