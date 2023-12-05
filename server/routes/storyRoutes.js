@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './client/src/pages/Home';
-import Vote from './client/src/pages/Vote';
 import Story from './client/src/pages/Story'; 
 import NotFound from './client/src/pages/NotFound';
 
@@ -11,7 +10,6 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/vote/:id" component={Vote} />
         <Route exact path="/matchup" component={CreateContribution} />
         
         {/* Route for creating a story */}
