@@ -13,7 +13,7 @@ const typeDefs = `
   }
 
   type Query {
-    stories: [Stories]
+    stories: [String]
     matchups(_id: String): [Matchup]
   }
 
