@@ -10,12 +10,13 @@ export const AUTH_QUERY = gql`
   }
 `;
 
-// Mutation for creating a new story
-export const CREATE_STORY = gql`
-  mutation createStory($title: String!, $initialContent: String!) {
-    createStory(title: $title, initialContent: $initialContent) {
+// Query for fetching a specific story
+export const GET_STORY = gql`
+  query getStory($id: ID!) {
+    story(id: $id) {
       _id
       title
+      content
     }
   }
 `;
