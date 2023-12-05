@@ -3,6 +3,11 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+
+
+const authenticateToken = require('./auth');
+const generateToken = require('./generate');
+
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/collabtale', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -68,6 +73,13 @@ const server = new ApolloServer({ typeDefs, resolvers });
 // Create Express app
 const app = express();
 
+app.post('/login', (req, res) => {
+  // Implement your login logic, validate credentials, etc.
+  // If login is successful, generate and send a JWT token
+  const userId = 'some-user-id'; // Replace with the actual user ID
+  const token = generateToken(userId);
+  res.json({ token });
+});
 // Middleware
 app.use(bodyParser.json());
 
