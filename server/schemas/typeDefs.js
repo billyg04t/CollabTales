@@ -27,12 +27,12 @@ const typeDefs = gql`
     created_at: Date
   }
 
+
   extend type Query {
     getUser(userId: ID!): User
     getContribution(contributionId: ID!): Contribution
     getStory(storyId: ID!): Story
-    # Add other queries as needed
-  }
+   }
 
   extend type Mutation {
     createUser(username: String!, email: String!, password: String!): User

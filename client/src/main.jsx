@@ -1,9 +1,9 @@
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx';
 import Home from './pages/Home.jsx';
-import Matchup from './pages/Matchup.jsx';
+import Story from './pages/Story.jsx';
 import Vote from './pages/Vote.jsx';
 import NotFound from './pages/NotFound.jsx';
 
@@ -17,16 +17,17 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />
       }, {
-        path: '/matchup',
-        element: <Matchup />
+        path: '/story',
+        element: <Story />
       }, {
-        path: '/matchup/:id',
+        path: '/vote/:id', // Adjusted the path for Vote
         element: <Vote />
       },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+ReactDOM.render(
+  <RouterProvider router={router} />,
+  document.getElementById('root')
 );

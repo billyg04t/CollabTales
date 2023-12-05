@@ -1,20 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { QUERY_MATCHUPS } from '../utils/queries';
-
-// Assume you have additional queries and mutations for user authentication, dashboard, etc.
+import { AUTH_QUERY, QUERY_STORIES } from '../utils/queries';
+import homeRoutes from './server/routes/homeRoutes';
 
 const Home = () => {
   // Use your authentication query or mutation here
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
-  // Fetch matchups data
-  const { loading: matchupsLoading, data: matchupsData } = useQuery(QUERY_MATCHUPS, {
+  // Fetch stories data
+  const { loading: storiesLoading, data: storiesData } = useQuery(QUERY_STORIES, {
     fetchPolicy: 'no-cache',
   });
 
-  const matchupList = matchupsData?.matchups || [];
+  const storyList = storiesData?.stories || [];
 
   return (
     <div className="card bg-white card-rounded w-50">
@@ -36,21 +35,21 @@ const Home = () => {
 
       <div className="card-body m-5">
         {/* Render dashboard content here */}
-        <h2>Current Story:</h2>
+        <h2>Current Stories:</h2>
         {/* Display story contributors and recent updates */}
 
         {/* Render story display with contributions */}
-        {matchupsLoading ? (
-          <div>Loading matchups...</div>
+        {storiesLoading ? (
+          <div>Loading stories...</div>
         ) : (
           <div>
-            <h3>Story Contributors:</h3>
-            {/* Render contributors here */}
+            <h3>Story List:</h3>
+            {/* Render stories here */}
             <ul className="square">
-              {matchupList.map((matchup) => (
-                <li key={matchup._id}>
-                  <Link to={{ pathname: `/matchup/${matchup._id}` }}>
-                    {matchup.tech1} vs. {matchup.tech2}
+              {storyList.map((story) => (
+                <li key={story._id}>
+                  <Link to={{ pathname: `/story/${story._id}` }}>
+                    {story.title}
                   </Link>
                 </li>
               ))}
@@ -61,15 +60,13 @@ const Home = () => {
 
       {/* Render contribution form here */}
       <div className="card-footer text-center m-3">
-        <h2>Contribute to the Story:</h2>
+        <h2>Contribute to a Story:</h2>
         {/* Provide a form or input area for contributions */}
         {/* Include text formatting or styling options */}
-        <Link to="/matchup">
+        <Link to="/story">
           <button className="btn btn-lg btn-danger">Create Contribution!</button>
         </Link>
       </div>
-
-      {/* Render real-time updates, user interaction, and error handling components here */}
 
       {/* Additional sections for real-time updates, user interaction, user-friendly design, error handling, mobile responsiveness, and testing */}
     </div>
