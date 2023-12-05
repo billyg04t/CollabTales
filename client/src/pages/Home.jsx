@@ -1,24 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+// Import useNavigate instead of useHistory
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { AUTH_QUERY, GET_STORY } from '../utils/queries';
+import { AUTH_QUERY } from '../utils/queries';
 
 const Home = () => {
-  // Use your authentication query or mutation here
+  // Use useNavigate instead of useHistory
+  const navigate = useNavigate();
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
-  // Fetch stories data
-  const { loading: storiesLoading, data: storiesData } = useQuery(GET_STORY, {
-    fetchPolicy: 'no-cache',
-  });
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const storyList = storiesData?.stories || [];
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        const { token } = await response.json();
+        localStorage.setItem('token', token);
+
+        // Use navigate instead of history.push
+        navigate('/dashboard');
+      } else {
+        console.error('Authentication failed');
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+    }
+  };
 
   return (
     <div className="card bg-white card-rounded w-50">
       <div className="card-header bg-dark text-center">
         <h1>CollabTales</h1>
-        {/* Render user authentication status here */}
         {authLoading ? (
           <div>Loading authentication...</div>
         ) : (
@@ -26,48 +47,29 @@ const Home = () => {
             {authData?.user ? (
               <p>Welcome, {authData.user.username}!</p>
             ) : (
-              <p>Please log in or sign up to get started!</p>
+              <div>
+                <p>Please log in or sign up to get started!</p>
+                <div>
+                  <label>
+                    Username:
+                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                  </label>
+                  <label>
+                    Password:
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                  </label>
+                  <button onClick={handleLogin} disabled={false}>
+                    Log In
+                  </button>
+                </div>
+                <Link to="/signup">
+                  <button className="btn btn-success">Sign Up</button>
+                </Link>
+              </div>
             )}
           </div>
         )}
       </div>
-
-      <div className="card-body m-5">
-        {/* Render dashboard content here */}
-        <h2>Current Stories:</h2>
-        {/* Display story contributors and recent updates */}
-
-        {/* Render story display with contributions */}
-        {storiesLoading ? (
-          <div>Loading stories...</div>
-        ) : (
-          <div>
-            <h3>Story List:</h3>
-            {/* Render stories here */}
-            <ul className="square">
-              {storyList.map((story) => (
-                <li key={story._id}>
-                  <Link to={{ pathname: `/story/${story._id}` }}>
-                    {story.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-
-      {/* Render contribution form here */}
-      <div className="card-footer text-center m-3">
-        <h2>Contribute to a Story:</h2>
-        {/* Provide a form or input area for contributions */}
-        {/* Include text formatting or styling options */}
-        <Link to="/story">
-          <button className="btn btn-lg btn-danger">Create Contribution!</button>
-        </Link>
-      </div>
-
-      {/* Additional sections for real-time updates, user interaction, user-friendly design, error handling, mobile responsiveness, and testing */}
     </div>
   );
 };
