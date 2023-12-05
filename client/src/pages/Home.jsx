@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY, QUERY_STORIES } from '../utils/queries';
+import homeRoutes from './server/routes/homeRoutes';
 
 const Home = () => {
   // Use your authentication query or mutation here

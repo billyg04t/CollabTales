@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { GET_USER } from '../utils/queries'; // Replace with your actual query
+import userRoutes from './server/routes/userRoutes';
 
 const User = () => {
   const { userId } = useParams();
