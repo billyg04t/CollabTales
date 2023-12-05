@@ -1,15 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { AUTH_QUERY, QUERY_STORIES } from '../utils/queries';
-import homeRoutes from './server/routes/homeRoutes';
+import { AUTH_QUERY, GET_STORY } from '../utils/queries';
 
 const Home = () => {
   // Use your authentication query or mutation here
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
   // Fetch stories data
-  const { loading: storiesLoading, data: storiesData } = useQuery(QUERY_STORIES, {
+  const { loading: storiesLoading, data: storiesData } = useQuery(GET_STORY, {
     fetchPolicy: 'no-cache',
   });
 

@@ -1,5 +1,4 @@
 import { useLocation } from 'react-router-dom';
-import notfoundRoutes from './server/routes/notfoundRoutes';
 
 function NotFound() {
   let location = useLocation();
