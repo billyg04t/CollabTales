@@ -41,3 +41,13 @@ export const CONTRIBUTIONS_QUERY = gql`
     }
   }
 `;
+
+// Export for finding liked stories
+export const LIKEDSTORIES_QUERY = gql`
+  query likedStories($userId: ID!) {
+    likedStories(userId: $userId) {
+      _id
+      title
+    }
+  }
+`;
