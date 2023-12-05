@@ -2,13 +2,13 @@ const { User, Story, Contribution }= require('../models');
 
 const resolvers = {
   Query: {
-    user: async () => {
+    getUser: async () => {
       return await User.findOne().populate('story');
     },
-    story: async () => {
+    getStory: async () => {
       return await Story.findOne().populate('user');
     },
-    Contribution: async () => {
+    getContribution: async () => {
       return await Contribution.findOne().populate('story');
     },
 
