@@ -1,29 +1,19 @@
-const { Stories, Matchup } = require('../models');
+const { User, Story, Contribution }= require('../models'); 
 
 const resolvers = {
   Query: {
-    stories: async () => {
-      return Stories.find({});
+    user: async () => {
+      return await User.findOne().populate('story');
     },
-    matchups: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
-      return Matchup.find(params);
+    story: async () => {
+      return await Story.findOne().populate('user');
     },
-  },
-  Mutation: {
-    createMatchup: async (parent, args) => {
-      const matchup = await Matchup.create(args);
-      return matchup;
+    Contribution: async () => {
+      return await Contribution.findOne().populate('story');
     },
-    createVote: async (parent, { _id, storyNum }) => {
-      const vote = await Matchup.findOneAndUpdate(
-        { _id },
-        { $inc: { [`story${storyNum}_votes`]: 1 } },
-        { new: true }
-      );
-      return vote;
-    },
-  },
+
+
+  }
 };
 
 module.exports = resolvers;
