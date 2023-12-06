@@ -11,6 +11,19 @@ export const ADD_CONTRIBUTION = gql`
   }
 `;
 
+// Mutation for adding a user to db
+export const ADD_USER = gql`
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+      }
+    }
+  }
+`;
+
 // Mutation for creating a new story
 export const CREATE_STORY = gql`
   mutation createStory($title: String!, $initialContent: String!) {
@@ -33,4 +46,3 @@ export const LOGIN_USER = gql`
   }
 `;
 
-// Add more mutations as needed for your story assignment
