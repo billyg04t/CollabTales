@@ -1,12 +1,24 @@
 const { Schema, model } = require('mongoose');
 
 const contributionSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-    story: { type: Schema.Types.ObjectId, ref: 'Story' },
-    content: String,
-    created_at: { type: Date, default: Date.now },
+    user: { 
+      type: String,
+      required: true, 
+      ref: 'User' 
+    },
+    title: { 
+      type: String, 
+      ref: 'Title' 
+    },
+    content: {
+      type: String,
+    },
+    created_at: { 
+      type: Date, 
+      default: Date.now 
+    },
   });
 
   const Contribution = model('Contribution', contributionSchema);
 
-module.export = Contribution; 
+module.exports = Contribution; 

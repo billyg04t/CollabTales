@@ -13,9 +13,22 @@ const storySchema = new Schema({
     type: String,
     required: true,
   },
-  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
-  author: { type: Schema.Types.ObjectId, ref: 'User' },
-  created_at: { type: Date, default: Date.now },
+  contributions: [
+    {
+      type: String,
+      ref: 'Contribution',
+    },
+  ],
+  
+  author: { 
+    type: String, 
+    required: true,
+    ref: 'User' 
+  },
+  created_at: { 
+    type: Date, 
+    default: Date.now 
+  },
 });
 
 const Story = model('Story', storySchema);
