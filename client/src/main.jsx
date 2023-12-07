@@ -7,6 +7,7 @@ import Story from './pages/Story.jsx';
 import NotFound from './pages/NotFound.jsx';
 import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
+import Dashboard from './pages/Dashboard.jsx'; // Added import for Dashboard
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,12 @@ const router = createBrowserRouter([
         element: <CollabTale />
       },
       {
-        path: '/signup',  
+        path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/dashboard', // Added route for Dashboard
+        element: <Dashboard />
       }
     ],
   },
