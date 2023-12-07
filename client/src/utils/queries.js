@@ -51,3 +51,17 @@ export const LIKEDSTORIES_QUERY = gql`
     }
   }
 `;
+
+export const QUERY_USER = gql`
+  query user($username: String!) {
+    user(username: $username) {
+      _id
+      username
+      email
+      stories {
+        _id
+        storyText
+      }
+    }
+  }
+`;

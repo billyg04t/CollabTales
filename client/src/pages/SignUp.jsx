@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
 
 const Signup = () => {
-  const history = useHistory();
-
-  // State for the signup form
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  // Use the ADD_USER mutation
+  const [addUser, { loading }] = useMutation(ADD_USER);
 
   const handleSignup = async () => {
     try {
@@ -21,16 +20,12 @@ const Signup = () => {
         return;
       }
 
-      // Call your signup API endpoint here
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      // Call the ADD_USER mutation
+      const { data } = await addUser({
+        variables: { username, password },
       });
 
-      if (response.ok) {
+      if (data.addUser) {
         // Redirect to the login page after successful signup
         history.push('/login');
       } else {
@@ -63,8 +58,8 @@ const Signup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </label>
-          <button onClick={handleSignup} disabled={false /* Update with actual loading state */}>
-            Sign Up
+          <button onClick={handleSignup} disabled={loading}>
+            {loading ? 'Signing up...' : 'Sign Up'}
           </button>
         </div>
         <p>
