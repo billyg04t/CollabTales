@@ -1,0 +1,27 @@
+[
+    {
+       "username" : "Shaun123",
+       "email" : "shaun123@gmail.com",
+       "contributions" : []
+    },
+    {
+        "username" : "Pual",
+        "email" :"pual456@gmail.com",
+        "contributions" : []
+    },
+    {
+        "username" : "Tyler",
+        "email" : "tyler789@gmail.com",
+        "contributions" : []
+    },
+    {
+        "username" : "Locket",
+        "email" : "locket@gmail.com",
+        "contributions" : []
+    },
+    {
+        "username" : "Alondra",
+        "email" : "alondra@gmail.com",
+        "contributions" : []
+    }
+]

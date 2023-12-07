@@ -1,0 +1,38 @@
+.custom-form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%; 
+    padding: 8px; 
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+  }
+
+  .form-label {
+    margin-right: 5px; 
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
+  }
+  
+  .button-container button {
+    margin: 0 10px; 
+  }
+
+  .off-white-background {
+    background-color: rgb(232, 236, 195);
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
