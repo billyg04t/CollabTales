@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const contributionSchema = new Schema({
     user: { 
-      type: Schema.Types.ObjectId, 
+      type: String,
+      required: true, 
       ref: 'User' 
     },
     title: { 
@@ -20,4 +21,4 @@ const contributionSchema = new Schema({
 
   const Contribution = model('Contribution', contributionSchema);
 
-module.export = Contribution; 
+module.exports = Contribution; 
