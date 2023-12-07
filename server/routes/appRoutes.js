@@ -1,10 +1,9 @@
-// AppRoutes.js
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Home from '../../client/src/pages/Home';
-import Story from '../../client/src/pages/Story';
-import User from '../../client/src/pages/User';
-import NotFound from '../../client/src/pages/NotFound';
+const React = require('react');
+const { Route, Routes } = require('react-router-dom');
+const Home = require('../../client/src/pages/Home');
+const Story = require('../../client/src/pages/Story');
+const User = require('../../client/src/pages/User');
+const NotFound = require('../../client/src/pages/NotFound');
 
 const AppRoutes = () => {
   return (
@@ -17,4 +16,4 @@ const AppRoutes = () => {
   );
 };
 
-export default AppRoutes;
+module.exports = AppRoutes;
