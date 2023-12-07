@@ -1,0 +1,19 @@
+.custom-form-group {
+    margin-bottom: 15px; /* Adjust the margin as needed */
+  }
+  
+  label {
+    display: block; /* Make labels block-level for proper spacing */
+    margin-bottom: 5px; /* Adjust the margin as needed */
+  }
+  
+  input {
+    width: 100%; /* Make the input elements take the full width of their container */
+    padding: 8px; /* Add padding to the input elements */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin-bottom: 10px; /* Adjust the margin as needed */
+  }
+  
+  .form-label {
+    margin-right: 5px; /* Adjust the margin as needed */
+  }

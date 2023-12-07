@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY } from '../utils/queries';
-
+import "./Page's.css"
 const Home = () => {
   // Use useNavigate instead of useHistory
   const navigate = useNavigate();
@@ -37,6 +37,8 @@ const Home = () => {
   };
 
   return (
+    <>
+    <link rel="stylesheet" type="text/css" href="client\src\pages\Page's.css" />
     <div className="card bg-white card-rounded w-50">
       <div className="card-header bg-dark text-center">
         <h1>CollabTales</h1>
@@ -49,15 +51,19 @@ const Home = () => {
             ) : (
               <div>
                 <p>Please log in or sign up to get started!</p>
-                <div>
-                  <label>
-                    Username:
+                <div className="custom-form-group">
+                  <div className="custom-form-group"> 
+                  <label className="form-label">
+                    Username: 
                     <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                   </label>
-                  <label>
-                    Password:
+                  </div>
+                  <div className="custom-form-group">
+                  <label className="form-label">
+                    Password:  
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </label>
+                  </div>
                   <button onClick={handleLogin} disabled={false}>
                     Log In
                   </button>
@@ -71,6 +77,7 @@ const Home = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
