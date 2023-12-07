@@ -1,19 +1,38 @@
 .custom-form-group {
-    margin-bottom: 15px; /* Adjust the margin as needed */
+    margin-bottom: 15px;
   }
   
   label {
-    display: block; /* Make labels block-level for proper spacing */
-    margin-bottom: 5px; /* Adjust the margin as needed */
+    display: block;
+    margin-bottom: 5px;
   }
   
   input {
-    width: 100%; /* Make the input elements take the full width of their container */
-    padding: 8px; /* Add padding to the input elements */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    margin-bottom: 10px; /* Adjust the margin as needed */
+    width: 100%; 
+    padding: 8px; 
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+  }
+
+  .form-label {
+    margin-right: 5px; 
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; 
   }
   
-  .form-label {
-    margin-right: 5px; /* Adjust the margin as needed */
+  .button-container button {
+    margin: 0 10px; 
+  }
+
+  .off-white-background {
+    background-color: rgb(232, 236, 195);
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
