@@ -1,28 +1,22 @@
-// App.js or your main routing component
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from '../../client/src/pages/Home';
-import Story from '../../client/src/pages/Story';
-import User from '../../client/src/pages/User'; 
-import NotFound from '../../client/src/pages/NotFound';
+const React = require('react');
+const { BrowserRouter, Route, Switch } = require('react-router-dom');
+const Home = require('../../client/src/pages/Home');
+const Story = require('../../client/src/pages/Story');
+const User = require('../../client/src/pages/User');
+const NotFound = require('../../client/src/pages/NotFound');
 
 const App = () => {
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/vote/:id" component={Vote} />
-        <Route exact path="/matchup" component={CreateContribution} />
-        <Route exact path="/story" component={Story} />
-        
-        {/* Route for displaying user profile */}
-        <Route exact path="/user/:userId" component={User} />
-
-        {/* Catch-all route for unmatched paths */}
+        {/* Uncomment the route below if needed */}
+        {/* <Route exact path="/user/:userId" component={UserProfile} /> */}
+        <Route exact path="/story/:storyId" component={Story} />
         <Route component={NotFound} />
       </Switch>
     </Router>
   );
 };
 
-export default userRoutes;
+module.exports = UserRoutes;
