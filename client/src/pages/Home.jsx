@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY } from '../utils/queries';
 import "./Page's.css"
+
 const Home = () => {
   // Use useNavigate instead of useHistory
   const navigate = useNavigate();
@@ -37,10 +38,8 @@ const Home = () => {
   };
 
   return (
-    <>
-    <link rel="stylesheet" type="text/css" href="client\src\pages\Page's.css" />
-    <div className="card bg-white card-rounded w-50">
-      <div className="card-header bg-dark text-center">
+    <div className="off-white-background card" style={{ border: 'none' }}>
+      <div className="card-header card card-rounded bg-dark text-center">
         <h1>CollabTales</h1>
         {authLoading ? (
           <div>Loading authentication...</div>
@@ -64,20 +63,21 @@ const Home = () => {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                   </label>
                   </div>
-                  <button onClick={handleLogin} disabled={false}>
+                  <div className= "button-container">
+                  <button className="btn btn-success" onClick={handleLogin} disabled={false} >
                     Log In
                   </button>
-                </div>
                 <Link to="/signup">
                   <button className="btn btn-success">Sign Up</button>
                 </Link>
+                </div>
+                </div>
               </div>
             )}
           </div>
         )}
       </div>
     </div>
-    </>
   );
 };
 
