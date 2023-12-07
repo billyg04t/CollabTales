@@ -30,4 +30,4 @@ router.post('/create-story', async (req, res) => {
   }
 });
 
-module.exports = dashboardRoutes;
+module.exports = router;

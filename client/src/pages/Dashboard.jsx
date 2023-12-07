@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { GET_RECENT_STORIES } from '../utils/queries'; // Assuming you have a query for recent stories
 
 const Dashboard = () => {
   // Use your query for recent stories
