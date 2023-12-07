@@ -17,4 +17,4 @@ const App = () => {
   );
 };
 
-module.exports = StoryRoutes;
+module.exports = storyRoutes;

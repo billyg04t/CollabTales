@@ -14,4 +14,4 @@ const HomeRoutes = () => {
   );
 };
 
-module.exports = HomeRoutes;
+module.exports = homeRoutes;

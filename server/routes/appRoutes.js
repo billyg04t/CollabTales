@@ -16,4 +16,4 @@ const AppRoutes = () => {
   );
 };
 
-module.exports = AppRoutes;
+module.exports = appRoutes;
