@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server');
 
-const typeDefs = gql`
+const typeDefs = `
+  scalar Date
   type User {
     _id: ID!
     username: String!
@@ -28,13 +29,13 @@ const typeDefs = gql`
   }
 
 
-  extend type Query {
+  type Query {
     getUser(userId: ID!): User
     getContribution(contributionId: ID!): Contribution
     getStory(storyId: ID!): Story
    }
 
-  extend type Mutation {
+  type Mutation {
     createUser(username: String!, email: String!, password: String!): User
     createContribution(userId: ID!, storyId: ID!, content: String!): Contribution
     createStory(title: String!, content: String!, genre: String!, authorId: ID!): Story

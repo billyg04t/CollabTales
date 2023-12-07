@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { CREATE_STORY } from '../utils/mutations';
-import storyRoutes from './server/routes/storyRoutes';
 
 const Story = () => {
   const [formData, setFormData] = useState({
