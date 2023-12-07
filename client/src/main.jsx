@@ -7,6 +7,7 @@ import Story from './pages/Story.jsx';
 import NotFound from './pages/NotFound.jsx';
 import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
+import Dashboard from './pages/Dashboard.jsx'
 
 const router = createBrowserRouter([
   {

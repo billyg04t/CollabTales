@@ -14,4 +14,4 @@ const App = () => {
   );
 };
 
-module.exports = notfoundRoutes;
+module.exports = notFoundRoutes;
