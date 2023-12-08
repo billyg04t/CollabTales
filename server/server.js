@@ -31,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 // Mount your routes
 app.use('/dashboard', dashboardRoutes);
 app.use('/home', homeRoutes);
+app.use('/notfound', notFoundRoutes);
 app.use('/signup', signupRoutes);
 app.use('/story', storyRoutes);
 app.use('/user', userRoutes);
