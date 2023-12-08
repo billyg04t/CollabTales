@@ -1,4 +1,4 @@
-const { User, Story, Contribution }= require('../models'); 
+const { User, Story, Contribution,login }= require('../models'); 
 
 const resolvers = {
   Query: {
@@ -11,6 +11,7 @@ const resolvers = {
     getContribution: async () => {
       return await Contribution.findOne().populate('story');
     },
+
     Mutation: {
       login: async (_, { email, password }) => {
         // Find the user with the provided email
@@ -30,7 +31,6 @@ const resolvers = {
         return user
       },
     }
-
   }
 };
 
