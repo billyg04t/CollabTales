@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY } from '../utils/queries';
+import { LOGIN_USER } from '../utils/mutations';
 import "./Page's.css"
 
 const Home = () => {
@@ -13,25 +14,19 @@ const Home = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [loginUser] = useMutation(LOGIN_USER);
+
   const handleLogin = async () => {
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      const { data } = await loginUser({
+        variables: { username, password },
       });
 
-      if (response.ok) {
-        const { token } = await response.json();
-        localStorage.setItem('token', token);
+      const { token } = data.login;
+      localStorage.setItem('token', token);
 
-        // Use navigate instead of history.push
-        navigate('/dashboard');
-      } else {
-        console.error('Authentication failed');
-      }
+      // Use navigate instead of history.push
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error during authentication:', error);
     }
