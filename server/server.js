@@ -37,7 +37,8 @@ if (process.env.NODE_ENV === 'production') {
   // Handle all other routes by serving the main HTML file
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-
+  });
+}
 const startApolloServer = async ()=>{
   await server.start();
 
