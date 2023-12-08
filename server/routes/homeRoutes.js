@@ -1,16 +1,11 @@
-const React = require('react');
-const { BrowserRouter, Route, Switch } = require('react-router-dom');
-const Home = require('../../client/src/pages/Home');
-const NotFound = require('../../client/src/pages/NotFound');
-const homeRoutes = () => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
-  );
-};
+// homeRoutes.js
+const express = require('express');
+const router = express.Router();
 
-module.exports = homeRoutes;
+router.get('/', (req, res) => {
+  // Assuming you have a GraphQL client on the frontend
+  // You can send queries to fetch data for the home route here
+  res.send('Home route');
+});
+
+module.exports = router;

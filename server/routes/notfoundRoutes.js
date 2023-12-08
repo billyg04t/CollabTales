@@ -1,17 +1,11 @@
-const React = require('react');
-const { BrowserRouter, Route, Switch } = require('react-router-dom');
-const Home = require('../../client/src/pages/Home');
-const NotFound = require('../../client/src/pages/NotFound');
+// notfoundRoutes.js
+const express = require('express');
+const router = express.Router();
 
-const notFoundRoutes = () => {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
-  );
-};
+router.get('*', (req, res) => {
+  // Assuming you have a GraphQL client on the frontend
+  // You can handle not found routes based on your frontend logic
+  res.send('Not Found route');
+});
 
-module.exports = notFoundRoutes;
+module.exports = router;

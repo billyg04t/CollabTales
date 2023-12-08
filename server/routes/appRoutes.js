@@ -1,19 +1,14 @@
-const React = require('react');
-const { Route, Routes } = require('react-router-dom');
-const Home = require('../../client/src/pages/Home');
-const Story = require('../../client/src/pages/Story');
-const User = require('../../client/src/pages/User');
-const NotFound = require('../../client/src/pages/NotFound');
+// appRoutes.js
+const express = require('express');
+const router = express.Router();
 
-const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/story" element={<Story />} />
-      <Route path="/user/:userId" element={<User />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
-  );
-};
+// Import your GraphQL schema and resolvers
+const { ApolloServer, gql } = require('apollo-server-express');
+const { graphqlExpress } = require('graphql-server-express');
+const typeDefs = require('./path-to-your-typedefs-file');
+const resolvers = require('./path-to-your-resolvers-file');
 
-module.exports = AppRoutes;
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
+apolloServer.applyMiddleware({ app: router, path: '/graphql' });
+
+module.exports = router;
