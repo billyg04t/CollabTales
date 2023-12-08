@@ -3,7 +3,7 @@ const { BrowserRouter, Route, Switch } = require('react-router-dom');
 const Home = require('../../client/src/pages/Home');
 const NotFound = require('../../client/src/pages/NotFound');
 
-const App = () => {
+const notFoundRoutes = () => {
   return (
     <Router>
       <Switch>
