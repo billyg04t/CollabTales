@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -11,6 +12,7 @@ const Signup = () => {
 
   // Use the ADD_USER mutation
   const [addUser, { loading }] = useMutation(ADD_USER);
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
@@ -28,7 +30,7 @@ const Signup = () => {
 
       if (data.addUser) {
         // Redirect to the login page after successful signup
-        history.push('/login');
+        navigate('/login');
       } else {
         // Handle signup failure (e.g., username already taken)
         console.error('Signup failed');

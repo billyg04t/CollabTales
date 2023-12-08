@@ -14,7 +14,7 @@ export const ADD_CONTRIBUTION = gql`
 // Mutation for adding a user to db
 export const ADD_USER = gql`
   mutation AddUser($username: String!, $email: String!, $password: String!) {
-    createUser(username: $username, email: $email, password: $password) {
+    addUser(username: $username, email: $email, password: $password) {
       token
       user {
         _id
