@@ -20,6 +20,15 @@ export const GET_STORY = gql`
     }
   }
 `;
+export const GET_RECENT_STORIES = gql`
+  query getStory($id: ID!) {
+    story(id: $id) {
+      _id
+      title
+      content
+    }
+  }
+`;
 
 // Query for fetching story contributors
 export const CONTRIBUTORS_QUERY = gql`
