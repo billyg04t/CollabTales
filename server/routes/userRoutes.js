@@ -5,7 +5,7 @@ const Story = require('../../client/src/pages/Story');
 const User = require('../../client/src/pages/User');
 const NotFound = require('../../client/src/pages/NotFound');
 
-const App = () => {
+const userRoutes = () => {
   return (
     <Router>
       <Switch>
