@@ -19,4 +19,4 @@ const App = () => {
   );
 };
 
-module.exports = UserRoutes;
+module.exports = userRoutes;
