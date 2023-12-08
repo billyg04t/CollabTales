@@ -1,34 +1,23 @@
-const React = require('react');
-const { useState } = require('react');
-const { useQuery } = require('@apollo/client');
-const { Link, Route, Switch } = require('react-router-dom');
+const express = require('express');
+const router = express.Router();
+const Story = require('../models/Story');
+const User = require('../models/User');
 
-// Assuming you have a query for recent stories
-const { GET_RECENT_STORIES } = require('../utils/queries');
-
-router.get('/dashboard', (req, res) => {
-  const { loading: storiesLoading, data: storiesData } = useQuery(GET_RECENT_STORIES, {
-    fetchPolicy: 'no-cache',
-  });
-
-  const recentStories = storiesData?.recentStories || [];
-
-  res.status(200).json({ storiesLoading, recentStories });
-});
-
-router.post('/dashboard/create-story', (req, res) => {
-  const { newStoryTitle } = req.body;
-
+router.get('/dashboard', async (req, res) => {
   try {
-    // Call your API endpoint to create a new story here
-    // Example: const response = await createStoryMutation({ variables: { title: newStoryTitle } });
+    // Fetch recent stories and user information
+    const recentStories = await Story.find().sort({ created_at: 'desc' }).limit(5);
+    const user = await User.findById(req.user._id).select('username'); 
 
-    // For simplicity, let's log the new story title for now
-    console.log('New story created:', newStoryTitle);
 
-    res.status(201).json({ message: 'Story created successfully' });
+    res.status(200).json({
+      user: {
+        username: user.username,
+      },
+      recentStories,
+    });
   } catch (error) {
-    console.error('Error creating a new story:', error);
+    console.error('Error fetching dashboard data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

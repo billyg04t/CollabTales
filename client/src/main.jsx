@@ -32,8 +32,12 @@ const router = createBrowserRouter([
         element: <CollabTale />
       },
       {
-        path: '/signup',  
+        path: '/signup',
         element: <Signup />
+      },
+      {
+        path: '/dashboard', // Added route for Dashboard
+        element: <Dashboard />
       }
     ],
   },

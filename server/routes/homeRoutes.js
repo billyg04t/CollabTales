@@ -2,16 +2,15 @@ const React = require('react');
 const { BrowserRouter, Route, Switch } = require('react-router-dom');
 const Home = require('../../client/src/pages/Home');
 const NotFound = require('../../client/src/pages/NotFound');
-
-const HomeRoutes = () => {
+const homeRoutes = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route component={NotFound} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 
-module.exports = HomeRoutes;
+module.exports = homeRoutes;
