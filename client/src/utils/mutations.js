@@ -26,8 +26,43 @@ export const ADD_USER = gql`
 
 // Mutation for creating a new story
 export const CREATE_STORY = gql`
-  mutation createStory($title: String!, $initialContent: String!) {
-    createStory(title: $title, initialContent: $initialContent) {
+  mutation createStory($title: String!, $content: String!, $genre: String!) {
+    createStory(input: { title: $title, content: $content, genre: $genre }) {
+      _id
+      title
+      content
+      genre
+      created_at
+      author {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+
+// Mutation for updating a story
+export const UPDATE_STORY = gql`
+  mutation updateStory($id: ID!, $title: String, $content: String, $genre: String) {
+    updateStory(id: $id, input: { title: $title, content: $content, genre: $genre }) {
+      _id
+      title
+      content
+      genre
+      created_at
+      author {
+        _id
+        username
+      }
+    }
+  }
+`;
+
+// Mutation for deleting a story
+export const DELETE_STORY = gql`
+  mutation deleteStory($id: ID!) {
+    deleteStory(id: $id) {
       _id
       title
     }

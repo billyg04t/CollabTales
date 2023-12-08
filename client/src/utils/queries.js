@@ -17,6 +17,12 @@ export const GET_STORY = gql`
       _id
       title
       content
+      genre
+      created_at
+      author {
+        _id
+        username
+      }
     }
   }
 `;
@@ -32,6 +38,22 @@ query getRecentStories {
     created_at
   }
 }
+`;
+
+// Query for fetching stories by genre
+export const GET_STORIES_BY_GENRE = gql`
+  query getStoriesByGenre($genre: String!) {
+    storiesByGenre(genre: $genre) {
+      _id
+      title
+      content
+      created_at
+      author {
+        _id
+        username
+      }
+    }
+  }
 `;
 
 // Query for fetching story contributors
