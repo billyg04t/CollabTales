@@ -21,6 +21,19 @@ export const GET_STORY = gql`
   }
 `;
 
+export const GET_RECENT_STORIES = gql`
+query getRecentStories {
+  recentStories {
+    _id
+    title
+    author {
+      username
+    }
+    created_at
+  }
+}
+`;
+
 // Query for fetching story contributors
 export const CONTRIBUTORS_QUERY = gql`
   query contributors {

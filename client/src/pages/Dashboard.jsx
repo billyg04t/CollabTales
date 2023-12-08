@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 
-// Import your GraphQL queries and mutations
-import { GET_RECENT_STORIES, CREATE_STORY_MUTATION } from './graphql'; // Adjust the path accordingly
 
+import { GET_RECENT_STORIES } from '../utils/queries';
+import { CREATE_STORY } from '../utils/mutations';
 const Dashboard = () => {
   // Use your query for recent stories
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
@@ -14,11 +14,14 @@ const Dashboard = () => {
     }
   );
 
+  const recentStories = storiesData?.recentStories || []
+  console.log(storiesData)
+
   const [newStoryTitle, setNewStoryTitle] = useState('');
 
   // Use the mutation hook for creating a new story
   const [createStoryMutation, { loading: createStoryLoading }] = useMutation(
-    CREATE_STORY_MUTATION,
+    CREATE_STORY,
     {
       // Optionally, you can update the cache or refetch queries after a successful mutation
       // update: (cache, { data: { createStory } }) => {
@@ -58,7 +61,7 @@ const Dashboard = () => {
           <div>Loading stories...</div>
         ) : (
           <ul>
-            {storiesData.recentStories.map((story) => (
+            {recentStories.map((story) => (
               <li key={story._id}>
                 <h3>{story.title}</h3>
                 <p>Author: {story.author.username}</p>
