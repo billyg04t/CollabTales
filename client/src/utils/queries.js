@@ -20,14 +20,18 @@ export const GET_STORY = gql`
     }
   }
 `;
+
 export const GET_RECENT_STORIES = gql`
-  query getStory($id: ID!) {
-    story(id: $id) {
-      _id
-      title
-      content
+query getRecentStories {
+  recentStories {
+    _id
+    title
+    author {
+      username
     }
+    created_at
   }
+}
 `;
 
 // Query for fetching story contributors
