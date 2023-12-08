@@ -5,6 +5,7 @@ import { ADD_USER } from '../utils/mutations';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -22,7 +23,7 @@ const Signup = () => {
 
       // Call the ADD_USER mutation
       const { data } = await addUser({
-        variables: { username, password },
+        variables: { username, email, password, },
       });
 
       if (data.addUser) {
@@ -45,6 +46,10 @@ const Signup = () => {
           <label>
             Username:
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </label>
+          <label>
+             Email:
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
           </label>
           <label>
             Password:
