@@ -56,23 +56,44 @@ export const GET_STORIES_BY_GENRE = gql`
   }
 `;
 
-// Query for fetching story contributors
-export const CONTRIBUTORS_QUERY = gql`
-  query contributors {
-    contributors {
+// Query for fetching a specific contribution
+export const GET_CONTRIBUTION = gql`
+  query getContribution($id: ID!) {
+    contribution(id: $id) {
       _id
-      name
+      user {
+        _id
+        username
+      }
+      title
+      content
+      created_at
     }
   }
 `;
 
 // Query for fetching recent story contributions
 export const CONTRIBUTIONS_QUERY = gql`
-  query contributions {
-    updates {
+_id
+user {
+  _id
+  username
+}
+title
+content
+created_at
+}
+}
+`;
+
+// Query for fetching contributions by user
+export const GET_CONTRIBUTIONS_BY_USER = gql`
+  query getContributionsByUser($userId: ID!) {
+    contributionsByUser(userId: $userId) {
       _id
+      title
       content
-      createdAt
+      created_at
     }
   }
 `;

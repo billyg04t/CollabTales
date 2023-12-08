@@ -2,11 +2,45 @@ import { gql } from '@apollo/client';
 
 // Mutation for adding a contribution to the story
 export const ADD_CONTRIBUTION = gql`
-  mutation addContribution($_id: String!, $content: String!) {
-    addContribution(_id: $_id, content: $content) {
+  mutation addContribution($userId: ID!, $title: String!, $content: String!) {
+    createContribution(input: { userId: $userId, title: $title, content: $content }) {
       _id
+      user {
+        _id
+        username
+      }
+      title
       content
-      createdAt
+      created_at
+    }
+  }
+`;
+
+// Mutation for updating a contribution
+export const UPDATE_CONTRIBUTION = gql`
+  mutation updateContribution($id: ID!, $content: String!) {
+    updateContribution(id: $id, input: { content: $content }) {
+      _id
+      user {
+        _id
+        username
+      }
+      title
+      content
+      created_at
+    }
+  }
+`;
+// Mutation for deleting a contribution
+export const DELETE_CONTRIBUTION = gql`
+  mutation deleteContribution($id: ID!) {
+    deleteContribution(id: $id) {
+      _id
+      user {
+        _id
+        username
+      }
+      title
     }
   }
 `;
