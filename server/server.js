@@ -64,4 +64,6 @@ const startApolloServer = async ()=>{
   });
 } 
 
-startApolloServer();
+db.once('open', () => {
+  startApolloServer(); // Call the function to start both servers
+});

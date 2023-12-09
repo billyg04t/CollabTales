@@ -8,7 +8,7 @@ Mutation: {
       password: password,
     });
 
-    return createUserUser;
+    return createUser;
   }
 };
 

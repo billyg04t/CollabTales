@@ -1,4 +1,4 @@
-const { User, Story, Contribution,login }= require('../models'); 
+const { User, Story, Contribution, Login }= require('../models'); 
 
 const resolvers = {
   Query: {
@@ -11,9 +11,19 @@ const resolvers = {
     getContribution: async () => {
       return await Contribution.findOne().populate('story');
     },
-
+  },
     Mutation: {
-      login: async (_, { email, password }) => {
+      createUser: async (_, { username, email, password }) => {
+        // You may want to add validation logic here before creating the user
+        const newUser = await User.create({
+          username,
+          email,
+          password,
+        });
+  
+        return newUser;
+      },
+      loginUser: async (_, { email, password }) => {
         // Find the user with the provided email
         const user = await User.findOne({ email });
   
@@ -28,10 +38,10 @@ const resolvers = {
           throw new Error('Invalid password');
         }
   
-        return user
+        return user;
       },
-    }
-  }
-};
+      // Add other mutations as needed
+    },
+  };
 
 module.exports = resolvers;
