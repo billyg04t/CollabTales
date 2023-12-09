@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
-
-
 import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
+import "./Page's.css"
+import MyCalendar from './MyCalendar';
+import Weather from './WeatherWidge';
+
 const Dashboard = () => {
   // Use your query for recent stories
+  
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
     GET_RECENT_STORIES,
     {
       fetchPolicy: 'no-cache',
     }
   );
+
+// Sets the navbar to login or signout stage
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [newPostContent, setNewPostContent] = useState('');
+  const [posts, setPosts] = useState([]);
+
+  const handleCreatePost = () => {
+    // Create a new post object with the current timestamp
+    const newPost = {
+      id: Date.now(), 
+      username: 'Username', // Replace with the actual username or fetch from authentication
+      timestamp: new Date().toLocaleString(),
+      content: newPostContent,
+    };
+    setPosts([newPost, ...posts]);
+
+    setNewPostContent('');
+  };
 
   const recentStories = storiesData?.recentStories || []
   console.log(storiesData)
@@ -52,30 +73,93 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      {/* CollabTales Title and Navbar */}
+      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)' }}>
+        <div>
+          {/* Updated h1 element without a link */}
+          <h1 className="collabTalesHeader">CollabTales</h1>
 
-      {/* Display most recent stories */}
-      <div>
-        <h2>Most Recent Stories:</h2>
-        {storiesLoading ? (
-          <div>Loading stories...</div>
-        ) : (
-          <ul>
-            {recentStories.map((story) => (
-              <li key={story._id}>
-                <h3>{story.title}</h3>
-                <p>Author: {story.author.username}</p>
-                {/* Add a link to view the full story or contribute */}
-                <Link to={`/story/${story._id}`}>View Story</Link>
-                {/* Add a button/link to contribute to the story */}
-                <Link to={`/contribute/${story._id}`}>Contribute</Link>
-              </li>
-            ))}
-          </ul>
-        )}
+          {/* Navbar with login/signup buttons */}
+          <nav className="navbar">
+            <div className='navLinkContainer'>
+            <Link to="/" className="navLink">Home</Link>
+            <Link to="/profile" className="profile navLink ">Profile</Link>
+            </div>
+
+            {/* Login/Signup button */}
+            <div className="authButton">
+              {isLoggedIn ? (
+                <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+              ) : (
+                <>
+                  <Link to="/" className="navLink">Login</Link>
+                  <span className="orText">or</span>
+                  <Link to="/signup" className="navLink">Signup</Link>
+                </>
+              )}
+            </div>
+          </nav>
+        </div>
+
+        {/* Main Content Area */}
+        <div className="mainContent">
+          {/* */}
+          <div className="contentWrapper">
+            {/* */}
+            <div className="leftSidebar">
+            {/* Calendar component */}
+            <MyCalendar />
+          </div>
+
+            {/* Main Content */}
+            <div className="mainFeed">
+              {/* Create Post Form */}
+              <div className="postForm">
+                <textarea
+                  placeholder="What's on your mind?"
+                  value={newPostContent}
+                  onChange={(e) => setNewPostContent(e.target.value)}
+                />
+                <button onClick={handleCreatePost}>Post</button>
+              </div>
+
+              {/* Display Posts */}
+              {posts.map((post) => (
+                <div key={post.id} className="postCard">
+                  
+                  <div className="postHeader">
+                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
+                    <div>
+                      <p className="username">{post.username}</p>
+                      <p className="timestamp">{post.timestamp}</p>
+                    </div>
+                  </div>
+                  <div className="postContent">
+                    <p>{post.content}</p>
+                  </div>
+                  <div className="postActions">
+                  </div>
+                </div>
+                 ))}
+            </div>
+            <div className="rightSidebar">
+                  {/* Include Weather component */}
+                  <Weather />
+                  {/* Text on the right side */}
+                </div>
+
+          </div>
+        </div>
       </div>
+    </div>
+  );
+};
 
-      {/* Form to create a new story */}
+export default Dashboard;
+
+// Old code idk if its useful so here it is
+
+      /* {Form to create a new story}
       <div>
         <h2>Create a New Story:</h2>
         <label>
@@ -91,14 +175,13 @@ const Dashboard = () => {
         </button>
       </div>
 
-      {/* Links to user profile and liked stories */}
-      <div>
+      {/* Links to user profile and liked stories */
+      /* <div>
         <h2>User Options:</h2>
         <Link to="/profile">View Your Profile</Link>
         <br />
       </div>
     </div>
+  </div>
   );
-};
-
-export default Dashboard;
+}; */
