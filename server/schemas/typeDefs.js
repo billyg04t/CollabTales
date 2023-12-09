@@ -38,7 +38,6 @@ const typeDefs =gql `
     createUser(username: String!, email: String!, password: String!): User
     createContribution(userId: ID!, storyId: ID!, content: String!): Contribution
     createStory(title: String!, content: String!, genre: String!, authorId: ID!): Story
-    login(email: String!, password: String!): User
   }
 
 `;
