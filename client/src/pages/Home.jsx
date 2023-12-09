@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY } from '../utils/queries';
 import { LOGIN_USER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
 import "./Page's.css"
 
 const Home = () => {

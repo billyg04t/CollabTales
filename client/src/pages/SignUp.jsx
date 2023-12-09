@@ -30,7 +30,7 @@ const Signup = () => {
 
       if (data.addUser) {
         // Redirect to the login page after successful signup
-        navigate('/home');
+        navigate('/');
       } else {
         // Handle signup failure (e.g., username already taken)
         console.error('Signup failed');
@@ -70,7 +70,7 @@ const Signup = () => {
           </button>
         </div>
         <p>
-          Already have an account? <Link to="/home">Log In</Link>
+          Already have an account? <Link to="/">Log In</Link>
         </p>
       </div>
     </div>
