@@ -13,14 +13,16 @@ const Home = () => {
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleLogin = async () => {
     try {
       const { data } = await loginUser({
-        variables: { username, password },
+        variables: { email, password },
       });
 
       const { token } = data.login;
@@ -49,8 +51,8 @@ const Home = () => {
                 <div className="custom-form-group">
                   <div className="custom-form-group"> 
                   <label className="form-label">
-                    Username: 
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    Email: 
+                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                   </label>
                   </div>
                   <div className="custom-form-group">
