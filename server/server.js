@@ -13,7 +13,7 @@ const server = new ApolloServer({
   resolvers,
 });
 
-const startServer = async () => {
+const startApolloServer = async ()=>{
   await server.start();
 
   // Mount the Apollo middleware
@@ -32,11 +32,12 @@ const startServer = async () => {
       res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
   }
-
-  // Start the Express server
-  app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
-    console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+  
+  db.once('open', () => {
+    app.listen(PORT, () => {
+      console.log(`API server running on port ${PORT}!`);
+      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+    });
   });
 };
 
