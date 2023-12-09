@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx';
@@ -7,7 +7,7 @@ import Story from './pages/Story.jsx';
 import NotFound from './pages/NotFound.jsx';
 import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
-import Dashboard from './pages/Dashboard.jsx'
+import Dashboard from './pages/Dashboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +43,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />,
 );
