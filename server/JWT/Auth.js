@@ -1,7 +1,6 @@
-
-const { User, Login } = require('./models');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken'); // Don't forget to import jwt
+const jwt = require('jsonwebtoken');
+const jwtSecret = require('../config/jwt/secret');
+const authService = require('../services/auth/authService');
 
 function authenticateToken(req, res, next) {
   const token = req.header('Authorization');
@@ -20,32 +19,4 @@ function authenticateToken(req, res, next) {
   });
 }
 
-const createUser = async (username, email, password) => {
-  // New createUser function
-  const newUser = await User.create({
-    username,
-    email,
-    password,
-  });
-
-  return newUser;
-};
-
-const login = async (email, password) => {
-  // New login function
-  const user = await Login.findOne({ email });
-
-  if (!user) {
-    throw new Error('User not found');
-  }
-
-  const isValidPassword = await bcrypt.compare(password, user.password);
-
-  if (!isValidPassword) {
-    throw new Error('Invalid password');
-  }
-
-  return user;
-};
-
-module.exports = { authenticateToken, createUser, login };
+module.exports = { authenticateToken, ...authService };
