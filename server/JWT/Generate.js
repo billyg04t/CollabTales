@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const jwtSecret = 'your-secret-key';
 
 function generateToken(userId) {
   const payload = { userId };
@@ -7,4 +8,4 @@ function generateToken(userId) {
   return jwt.sign(payload, jwtSecret, options);
 }
 
-module.export = jwt;
+module.exports = jwt;
