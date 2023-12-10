@@ -1,22 +1,37 @@
+const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-const jwtSecret = require('../config/jwt/secret');
-const authService = require('../services/auth/authService');
 
-function authenticateToken(req, res, next) {
-  const token = req.header('Authorization');
+const secret = 'mysecretssshhhhhhh';
+const expiration = '2h';
 
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized - Missing token' });
-  }
+module.exports = {
+  AuthenticationError: new GraphQLError('Could not authenticate user.', {
+    extensions: {
+      code: 'UNAUTHENTICATED',
+    },
+  }),
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (err) {
-      return res.status(403).json({ message: 'Forbidden - Invalid token' });
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
     }
 
-    req.userId = decoded.userId;
-    next();
-  });
-}
+    if (!token) {
+      return req;
+    }
 
-module.exports = { authenticateToken, ...authService };
+    try {
+      const { authenticatedPerson } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = authenticatedPerson;
+    } catch {
+      console.log('Invalid token');
+    }
+
+    return req;
+  },
+  signToken: function ({ email, username, _id }) {
+    const payload = { email, username, _id };
+    return jwt.sign({ authenticatedPerson: payload }, secret, { expiresIn: expiration });
+  },
+};

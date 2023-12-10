@@ -22,21 +22,24 @@ const Signup = () => {
         console.error('Passwords do not match');
         return;
       }
-
+  
       // Call the ADD_USER mutation
-      const { data } = await addUser({
-        variables: { username, email, password, },
+      const { data, errors } = await addUser({
+        variables: { username, email, password },
       });
-
-      if (data.addUser) {
+  
+      console.log('Mutation Response:', data);
+      console.log('Mutation Errors:', errors);
+  
+      if (data?.addUser?.token) {
         // Redirect to the login page after successful signup
         navigate('/');
       } else {
-        // Handle signup failure (e.g., username already taken)
-        console.error('Signup failed');
+        // Handle signup failure
+        console.error('Signup failed:', errors);
       }
     } catch (error) {
-      console.error('Error during signup:', error);
+      console.error('Error during signup:', error.message);
     }
   };
 

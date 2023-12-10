@@ -1,21 +1,18 @@
-// Import useNavigate instead of useHistory
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { AUTH_QUERY } from '../utils/queries';
 import { LOGIN_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
-import "./Page's.css"
+import AuthService from '../utils/auth';
+import "./Page's.css";
 
 const Home = () => {
-  // Use useNavigate instead of useHistory
   const navigate = useNavigate();
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   const [loginUser] = useMutation(LOGIN_USER);
 
@@ -26,12 +23,14 @@ const Home = () => {
       });
 
       const { token } = data.login;
-      localStorage.setItem('token', token);
+      AuthService.login(token);  // Use AuthService to handle login
 
       // Use navigate instead of history.push
       navigate('/dashboard');
     } catch (error) {
-      console.error('Error during authentication:', error);
+      if (error.message.includes('User not found') || error.message.includes('Incorrect password')) {
+        console.error('Authentication failed:', error.message);
+      }
     }
   };
 
@@ -49,26 +48,26 @@ const Home = () => {
               <div>
                 <p>Please log in or sign up to get started!</p>
                 <div className="custom-form-group">
-                  <div className="custom-form-group"> 
-                  <label className="form-label">
-                    Email: 
-                    <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-                  </label>
+                  <div className="custom-form-group">
+                    <label className="form-label">
+                      Email:
+                      <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </label>
                   </div>
                   <div className="custom-form-group">
-                  <label className="form-label">
-                    Password:  
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                  </label>
+                    <label className="form-label">
+                      Password:
+                      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </label>
                   </div>
-                  <div className= "button-container">
-                  <button className="btn btn-success" onClick={handleLogin} disabled={false} >
-                    Log In
-                  </button>
-                <Link to="/signup">
-                  <button className="btn btn-success">Sign Up</button>
-                </Link>
-                </div>
+                  <div className="button-container">
+                    <button className="btn btn-success" onClick={handleLogin} disabled={false}>
+                      Log In
+                    </button>
+                    <Link to="/signup">
+                      <button className="btn btn-success">Sign Up</button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             )}
