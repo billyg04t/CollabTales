@@ -1,39 +1,37 @@
+const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
 
 const secret = 'mysecretssshhhhhhh';
 const expiration = '2h';
 
 module.exports = {
-  authMiddleware(req, res, next) {
-    try {
-      // Ensure that req exists and has headers
-      if (!req || !req.headers) {
-        return next(new Error('Could not authenticate user.'));
-      }
+  AuthenticationError: new GraphQLError('Could not authenticate user.', {
+    extensions: {
+      code: 'UNAUTHENTICATED',
+    },
+  }),
+  authMiddleware: function ({ req }) {
+    let token = req.body.token || req.query.token || req.headers.authorization;
 
-      // Allow token to be sent via req.body, req.query, or headers
-      let token = req.body.token || req.query.token || req.headers.authorization;
-
-      // ["Bearer", "<tokenvalue>"]
-      if (req.headers.authorization) {
-        token = token.split(' ').pop().trim();
-      }
-
-      if (!token) {
-        // If no token is present, proceed with the request without authentication
-        return next();
-      }
-
-      const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      req.user = data;
-      next();
-    } catch (error) {
-      console.error('Authentication error:', error);
-      return next(new Error('Could not authenticate user.'));
+    if (req.headers.authorization) {
+      token = token.split(' ').pop().trim();
     }
+
+    if (!token) {
+      return req;
+    }
+
+    try {
+      const { authenticatedPerson } = jwt.verify(token, secret, { maxAge: expiration });
+      req.user = authenticatedPerson;
+    } catch {
+      console.log('Invalid token');
+    }
+
+    return req;
   },
-  signToken({ firstName, email, _id }) {
-    const payload = { firstName, email, _id };
-    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  signToken: function ({ email, username, _id }) {
+    const payload = { email, username, _id };
+    return jwt.sign({ authenticatedPerson: payload }, secret, { expiresIn: expiration });
   },
 };

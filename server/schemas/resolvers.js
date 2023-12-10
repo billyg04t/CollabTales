@@ -17,22 +17,28 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (_, args) => {
-      try {
-        const user = await User.create(args);
-        const token = signToken(user);
-        return { token, user };
-      } catch (error) {
-        console.error('Error creating user:', error);
-
-        if (error.code === 11000) {
-          throw new Error('Email or username already in use. Please choose a different one.');
-        }
-
-        throw new Error('Failed to create user');
-      }
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
     },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
     updateUser: async (_, args, context) => {
       if (context.user) {
         return User.findByIdAndUpdate(context.user.id, args, {
@@ -42,30 +48,6 @@ const resolvers = {
 
       throw new AuthenticationError('User not authenticated');
     },
-
-    login: async (_, { email, password }) => {
-      try {
-        const user = await User.findOne({ email });
-
-        if (!user) {
-          throw new Error('User not found');
-        }
-
-        const correctPw = await user.isCorrectPassword(password);
-
-        if (!correctPw) {
-          throw new Error('Incorrect password');
-        }
-
-        const token = signToken(user);
-
-        return { token, user };
-      } catch (error) {
-        console.error('Login error:', error);
-        throw new Error('Login failed');
-      }
-    },
-
     createStory: async (_, { title, content }, context) => {
       if (context.user) {
         const story = await Story.create({
@@ -79,7 +61,6 @@ const resolvers = {
 
       throw new AuthenticationError('User not authenticated');
     },
-
     updateStory: async (_, { id, title, content }, context) => {
       if (context.user) {
         return Story.findByIdAndUpdate(
@@ -91,7 +72,6 @@ const resolvers = {
 
       throw new AuthenticationError('User not authenticated');
     },
-
     addContribution: async (_, { userId, storyId, content }, context) => {
       if (context.user) {
         const contribution = await Contribution.create({
