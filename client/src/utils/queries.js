@@ -2,13 +2,14 @@ import { gql } from '@apollo/client';
 
 // Query for user authentication
 export const AUTH_QUERY = gql`
-  query auth {
-    user {
+  query auth($userId: ID!) {
+    getUser(userId: $userId) {
       _id
       username
     }
   }
 `;
+
 
 // Query for fetching a specific story
 export const GET_STORY = gql`

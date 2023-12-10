@@ -12,7 +12,6 @@ const Home = () => {
   const navigate = useNavigate();
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,16 +23,21 @@ const Home = () => {
       const { data } = await loginUser({
         variables: { email, password },
       });
-
+  
       const { token } = data.login;
       localStorage.setItem('token', token);
-
+  
       // Use navigate instead of history.push
       navigate('/dashboard');
     } catch (error) {
-      console.error('Error during authentication:', error);
+      if (error.message.includes('User not found') || error.message.includes('Incorrect password')) {
+        // Handle authentication error (e.g., show error message to the user)
+        console.error('Authentication failed:', error.message);
+      }
     }
   };
+  
+  
 
   return (
     <div className="off-white-background card" style={{ border: 'none' }}>
