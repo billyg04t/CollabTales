@@ -1,49 +1,102 @@
 const express = require('express');
-const { ApolloServer } = require('@apollo/server');
-const { expressMiddleware } = require('@apollo/server/express4');
-const cors = require('cors');  // Import the cors middleware
-const path = require('path');
-const { authMiddleware } = require('./utils/auth');
+const { ApolloServer, gql } = require('apollo-server-express');
+const mongoose = require('mongoose');
 
-const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection');
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/your-database', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-const PORT = process.env.PORT || 3001;
-const app = express();
+// Define Mongoose schema and model for stories
+const storySchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+});
+
+const Story = mongoose.model('Story', storySchema);
+
+// Define Mongoose schema and model for users
+const userSchema = new mongoose.Schema({
+  username: String,
+});
+
+const User = mongoose.model('User', userSchema);
+
+const typeDefs = gql`
+  type Story {
+    _id: ID!
+    title: String!
+    content: String!
+    author: User!
+  }
+
+  type User {
+    _id: ID!
+    username: String!
+  }
+
+  type Mutation {
+    createStory(title: String!, content: String!): Story
+    registerUser(username: String!): User
+  }
+
+  type Query {
+    getStories: [Story]
+    getUsers: [User]
+  }
+`;
+
+const resolvers = {
+  Mutation: {
+    createStory: async (_, { title, content }, { user }) => {
+      // Check if user is authenticated
+      if (!user) {
+        throw new Error('User not authenticated');
+      }
+
+      // Create and save the story
+      const story = new Story({
+        title,
+        content,
+        author: user._id,
+      });
+      await story.save();
+
+      return story;
+    },
+    registerUser: async (_, { username }) => {
+      // Create and save the user
+      const user = new User({ username });
+      await user.save();
+
+      return user;
+    },
+  },
+  Query: {
+    getStories: () => Story.find().populate('author'),
+    getUsers: () => User.find(),
+  },
+};
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,  // Add authMiddleware to the context
+  context: ({ req }) => {
+    // Get the user from the request (assuming you have implemented authentication middleware)
+    const user = req.user;
+    return { user };
+  },
 });
 
-// Enable CORS
-app.use(cors());
+const app = express();
+server.applyMiddleware({ app });
 
-// Create a new instance of an Apollo server with the GraphQL schema
-const startApolloServer = async () => {
-  await server.start();
-
-  app.use(express.urlencoded({ extended: false }));
-  app.use(express.json());
-
-  // Apply Apollo Server middleware with expressMiddleware
-  app.use('/graphql', expressMiddleware(server));
-
-  if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    });
-  }
-
-  db.once('open', () => {
-    app.listen(PORT, () => {
-      console.log(`API server running on port ${PORT}!`);
-      console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
-    });
-  });
-};
-
-// Call the async function to start the server
-startApolloServer();
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}/graphql`);
+});
