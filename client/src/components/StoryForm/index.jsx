@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import { ADD_STORY } from '../../utils/mutations';
+import { CREATE_STORY } from '../../utils/mutations';
 import { QUERY_STORIES, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
@@ -11,7 +11,7 @@ const StoryForm = () => {
   const [storyTitle, setStoryTitle] = useState('');
   const [storyContent, setStoryContent] = useState('');
 
-  const [addStory, { error }] = useMutation(ADD_STORY, {
+  const [addStory, { error }] = useMutation(CREATE_STORY, {
     refetchQueries: [QUERY_STORIES, 'getStories', QUERY_ME, 'me'],
   });
 
