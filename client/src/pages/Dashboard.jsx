@@ -9,11 +9,18 @@ import Weather from './WeatherWidge';
 import Navbar from './Navbar';
 
 const Dashboard = () => {
-  // Use your query for recent stories
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // You may need to clear authentication tokens or perform any necessary cleanup
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
+    setIsLoggedIn(true);
     setIsLoggedOut(false);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setIsLoggedIn(false);
+    setIsLoggedOut(true);
   };
   
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
@@ -33,7 +40,7 @@ const Dashboard = () => {
     // Create a new post object with the current timestamp
     const newPost = {
       id: Date.now(), 
-      username: 'Username', // Replace with the actual username or fetch from authentication
+      username: loggedInUser.username, 
       timestamp: new Date().toLocaleString(),
       content: newPostContent,
     };
@@ -88,7 +95,7 @@ const Dashboard = () => {
           {/* Navbar with login/signup buttons */}
           <nav className="navbar">
             
-            <Link to="/" className="navLink">Home</Link>
+            <Link to="/Dashboard" className="dashboard navLink">Home</Link>
             <Link to="/User" className="profile navLink ">Profile</Link>
             
 
