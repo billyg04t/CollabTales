@@ -27,10 +27,12 @@ const Dashboard = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const [newPostContent, setNewPostContent] = useState('');
   const [posts, setPosts] = useState([]);
-
+console.log(Auth.getProfile())
+console.log(Auth.getProfile().username)
+console.log(Auth.getProfile().authenticatedPerson)
   const handleCreatePost = () => {
     if (Auth.loggedIn()) {
-      const username = Auth.getProfile().username;
+      const username = Auth.getProfile().authenticatedPerson.username;
 
       // Create a new post object with the current timestamp and actual username
       const newPost = {
@@ -39,7 +41,7 @@ const Dashboard = () => {
         timestamp: new Date().toLocaleString(),
         content: newPostContent,
       };
-
+      
       setPosts([newPost, ...posts]);
       setNewPostContent('');
     } else {
@@ -138,7 +140,7 @@ const Dashboard = () => {
                 <div key={post.id} className="postCard">
                   
                   <div className="postHeader">
-                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
+
                     <div>
                       <p className="username">{post.username}</p>
                       <p className="timestamp">{post.timestamp}</p>
