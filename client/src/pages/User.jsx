@@ -13,6 +13,7 @@ const Profile = () => {
   });
 
   const user = data?.me || data?.user || {};
+  console.log(user) 
   if (
     Auth.loggedIn() && 
     Auth.getProfile().authenticatedPerson.username === userParam
@@ -41,19 +42,13 @@ const Profile = () => {
         </h2>
 
         <div className="col-12 col-md-10 mb-5">
-          <ContributionList
-            contributions={user.contributions}
-            title={`${user.username}'s contributions...`}
-            showTitle={false}
-            showUsername={false}
-          />
+
         </div>
         {!userParam && (
           <div
             className="col-12 col-md-10 mb-3 p-3"
             style={{ border: '1px dotted #1a1a1a' }}
           >
-            <StoryForm />
           </div>
         )}
       </div>

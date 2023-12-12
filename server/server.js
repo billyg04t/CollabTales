@@ -13,7 +13,7 @@ const app = express();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,  // Add authMiddleware to the context
+  //context: authMiddleware,  // Add authMiddleware to the context
 });
 
 // Enable CORS
@@ -27,7 +27,9 @@ const startApolloServer = async () => {
   app.use(express.json());
 
   // Apply Apollo Server middleware with expressMiddleware
-  app.use('/graphql', expressMiddleware(server));
+  app.use('/graphql', expressMiddleware(server, { 
+    context: authMiddleware
+  }));
 
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
