@@ -5,9 +5,10 @@ import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
-import Weather from './WeatherWidge';
+// import Weather from './WeatherWidge';
 import Navbar from './Navbar';
 import Auth from '../utils/auth';
+import Footer from '../components/Footer';
 
 const Dashboard = () => {
   // Use your query for recent stories
@@ -156,7 +157,7 @@ console.log(Auth.getProfile().authenticatedPerson)
             </div>
             <div className="rightSidebar">
                   {/* Include Weather component */}
-                  <Weather />
+                  
                   {/* Text on the right side */}
                 </div>
 
