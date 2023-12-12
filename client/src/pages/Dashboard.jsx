@@ -96,7 +96,7 @@ console.log(Auth.getProfile().authenticatedPerson)
           {/* Navbar with login/signup buttons */}
           <nav className="navbar">
             
-            <Link to="/" className="navLink">Home</Link>
+            <Link to="/Dashboard" className="navLink">Home</Link>
             <Link to="/User" className="profile navLink ">Profile</Link>
             
 
