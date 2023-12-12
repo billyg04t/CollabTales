@@ -6,6 +6,7 @@ import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
+import Navbar from './Navbar';
 
 const Dashboard = () => {
   // Use your query for recent stories

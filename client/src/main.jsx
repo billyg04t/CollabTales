@@ -10,6 +10,7 @@ import Signup from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import User from './pages/User.jsx'
 
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
       {
         path: '/User',
         element: <User />
-      }
+      },
     ],
   },
 ]);
