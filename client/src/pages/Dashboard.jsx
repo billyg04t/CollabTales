@@ -6,10 +6,11 @@ import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
+import StoryList from '../components/StoryList';
+import StoryForm from '../components/StoryForm';
 
 const Dashboard = () => {
   // Use your query for recent stories
-  
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
     GET_RECENT_STORIES,
     {
@@ -17,10 +18,11 @@ const Dashboard = () => {
     }
   );
 
-// Sets the navbar to login or signout stage
+  // Sets the navbar to login or signout stage
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [newPostContent, setNewPostContent] = useState('');
   const [posts, setPosts] = useState([]);
+  const [newStoryTitle, setNewStoryTitle] = useState('');
 
   const handleCreatePost = () => {
     // Create a new post object with the current timestamp
@@ -35,10 +37,7 @@ const Dashboard = () => {
     setNewPostContent('');
   };
 
-  const recentStories = storiesData?.recentStories || []
-  console.log(storiesData)
-
-  const [newStoryTitle, setNewStoryTitle] = useState('');
+  const recentStories = storiesData?.recentStories || [];
 
   // Use the mutation hook for creating a new story
   const [createStoryMutation, { loading: createStoryLoading }] = useMutation(
@@ -57,12 +56,10 @@ const Dashboard = () => {
         variables: { title: newStoryTitle },
       });
 
-
       const newStory = response.data.createStory;
 
       console.log('New story created:', newStory);
 
-      
       setNewStoryTitle('');
 
       refetchRecentStories();
@@ -85,7 +82,6 @@ const Dashboard = () => {
             <Link to="/" className="navLink">Home</Link>
             <Link to="/profile" className="profile navLink ">Profile</Link>
             
-
             {/* Login/Signup button */}
             <div className="authButton">
               {isLoggedIn ? (
@@ -103,51 +99,74 @@ const Dashboard = () => {
 
         {/* Main Content Area */}
         <div className="mainContent">
-          {/* */}
-          <div className="contentWrapper">
-            {/* */}
-            <div className="leftSidebar">
+          {/* Left Sidebar */}
+          <div className="leftSidebar">
             {/* Calendar component */}
             <MyCalendar />
           </div>
 
-            {/* Main Content */}
-            <div className="mainFeed">
-              {/* Create Post Form */}
-              <div className="postForm">
-                <textarea
-                  placeholder="What's on your mind?"
-                  value={newPostContent}
-                  onChange={(e) => setNewPostContent(e.target.value)}
-                />
-                <button onClick={handleCreatePost}>Post</button>
-              </div>
-
-              {/* Display Posts */}
-              {posts.map((post) => (
-                <div key={post.id} className="postCard">
-                  
-                  <div className="postHeader">
-                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
-                    <div>
-                      <p className="username">{post.username}</p>
-                      <p className="timestamp">{post.timestamp}</p>
-                    </div>
-                  </div>
-                  <div className="postContent">
-                    <p>{post.content}</p>
-                  </div>
-                  <div className="postActions">
-                  </div>
-                </div>
-                 ))}
+          {/* Main Feed */}
+          <div className="mainFeed">
+            {/* Create Post Form */}
+            <div className="postForm">
+              <textarea
+                placeholder="What's on your mind?"
+                value={newPostContent}
+                onChange={(e) => setNewPostContent(e.target.value)}
+              />
+              <button onClick={handleCreatePost}>Post</button>
             </div>
-            <div className="rightSidebar">
-                  {/* Include Weather component */}
-                  <Weather />
-                  {/* Text on the right side */}
-                </div>
 
+            {/* Display Posts */}
+            {posts.map((post) => (
+              <div key={post.id} className="postCard">
+                <div className="postHeader">
+                  <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
+                  <div>
+                    <p className="username">{post.username}</p>
+                    <p className="timestamp">{post.timestamp}</p>
+                  </div>
+                </div>
+                <div className="postContent">
+                  <p>{post.content}</p>
+                </div>
+                <div className="postActions"></div>
+              </div>
+            ))}
+
+            {/* Display Recent Stories */}
+            <div className="recentStories">
+              <h2>Recent Stories</h2>
+              {recentStories.map((story) => (
+                <div key={story.id} className="clr">
+                  <h3>{story.title}</h3>
+                  {/* ... (display other story details) ... */}
+                </div>
+              ))}
+            </div>
+
+            {/* Create Story Form */}
+            <div>
+              <h2>Create a New Story:</h2>
+              <label>
+                Title:
+                <input
+                  type="text"
+                  value={newStoryTitle}
+                  onChange={(e) => setNewStoryTitle(e.target.value)}
+                />
+              </label>
+              <button onClick={handleCreateStory} disabled={createStoryLoading}>
+                {createStoryLoading ? 'Creating...' : 'Create Story'}
+              </button>
+            </div>
+          </div>
+
+          {/* Right Sidebar */}
+          <div className="rightSidebar">
+            {/* Include Weather component */}
+            <Weather />
+            {/* Text on the right side */}
           </div>
         </div>
       </div>
@@ -156,32 +175,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// Old code idk if its useful so here it is
-
-      /* {Form to create a new story}
-      <div>
-        <h2>Create a New Story:</h2>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
-        </label>
-        <button onClick={handleCreateStory} disabled={createStoryLoading}>
-          {createStoryLoading ? 'Creating...' : 'Create Story'}
-        </button>
-      </div>
-
-      {/* Links to user profile and liked stories */
-      /* <div>
-        <h2>User Options:</h2>
-        <Link to="/profile">View Your Profile</Link>
-        <br />
-      </div>
-    </div>
-  </div>
-  );
-}; */
