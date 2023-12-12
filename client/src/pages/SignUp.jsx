@@ -44,37 +44,39 @@ const Signup = () => {
   };
 
   return (
-    <div className="card bg-white card-rounded w-50">
-      <div className="card-header bg-dark text-center">
-        <h1>Signup</h1>
-        <div>
-          <label>
-            Username:
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-          </label>
-          <label>
-             Email:
-            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </label>
-          <label>
-            Password:
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </label>
-          <label>
-            Confirm Password:
-            <input
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </label>
-          <button onClick={handleSignup} disabled={loading}>
-            {loading ? 'Signing up...' : 'Sign Up'}
-          </button>
+    <div className="off-white-background d-flex align-items-center justify-content-center vh-100">
+      <div className="card card-rounded w-50">
+        <div className="card-header bg-dark text-center">
+          <h1>Signup</h1>
+          <div>
+            <label>
+              Username:
+              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </label>
+            <label>
+               Email:
+              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <label>
+              Password:
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
+            <label>
+              Confirm Password:
+              <input
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </label>
+            <button className="btn btn-success" onClick={handleSignup} disabled={loading}>
+              {loading ? 'Signing up...' : 'Sign Up'}
+             </button>
+          </div>
+          <p>
+            Already have an account? <Link to="/">Log In</Link>
+          </p>
         </div>
-        <p>
-          Already have an account? <Link to="/">Log In</Link>
-        </p>
       </div>
     </div>
   );
