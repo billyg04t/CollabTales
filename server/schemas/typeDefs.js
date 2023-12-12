@@ -31,13 +31,14 @@ const typeDefs = `
     getContribution(contributionId: ID!): Contribution
     getStory(storyId: ID!): Story
     hello: String
+    me: User 
    }
 
    type AuthPayload {
     token: String
     user: User
   }
-  
+
 
    type Mutation {
     addUser(username: String!, email: String!, password: String!): AuthPayload!

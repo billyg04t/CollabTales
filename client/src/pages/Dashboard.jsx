@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
-//import MyCalendar from './MyCalendar';
+import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
 
 const Dashboard = () => {
@@ -83,7 +83,7 @@ const Dashboard = () => {
           <nav className="navbar">
             
             <Link to="/" className="navLink">Home</Link>
-            <Link to="/profile" className="profile navLink ">Profile</Link>
+            <Link to="/User" className="profile navLink ">Profile</Link>
             
 
             {/* Login/Signup button */}

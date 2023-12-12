@@ -1,11 +1,8 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-
-import StoryForm from '../components/StoryForm';
-import ContributionList from '../components/ContributionList';
-
+//import StoryForm from './components/StoryForm';
+//import ContributionList from '../components/ContributionList';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-
 import Auth from '../utils/auth';
 
 const Profile = () => {
@@ -64,4 +61,4 @@ const Profile = () => {
   );
 };
 
-export default User;
+export default Profile;
