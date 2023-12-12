@@ -22,9 +22,8 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       // Hash the password before storing it
-      const hashedPassword = await hashPassword(password);
 
-      const user = await User.create({ username, email, password: hashedPassword });
+      const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
@@ -41,10 +40,10 @@ const resolvers = {
       }
     
       // Compare the provided password with the hashed password from the database
-      const correctPw = await comparePasswords(password, user.password);
+      const correctPw = user.isCorrectPassword(password) //await comparePasswords(password, user.password);
     
       console.log('Entered Password:', password);
-console.log('Hashed Password in Database:', user.password);
+      //console.log('Hashed Password in Database:', user.password);
 
 if (!correctPw) {
   console.error('Incorrect password for email:', email);
@@ -53,15 +52,6 @@ if (!correctPw) {
     
       // Create the token
       const token = signToken(user);
-    
-      try {
-        // Verify the token and decode the payload
-        const decoded = jwt.verify(token, secret);
-        console.log('Decoded token:', decoded);
-      } catch (error) {
-        console.error('Token verification error:', error);
-        throw new AuthenticationError('Could not authenticate user.');
-      }
     
       console.log('Login successful for email:', email);
       return { token, user };

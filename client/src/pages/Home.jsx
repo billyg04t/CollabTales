@@ -9,7 +9,7 @@ import "./Page's.css";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { loading: authLoading, error: authError, data: authData } = useQuery(AUTH_QUERY);
+  const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ const Home = () => {
         variables: { email, password },
       });
   
-      const { token } = loginResult.data.login;
+      const { token } = data.login;
       AuthService.login(token);  // Use AuthService to handle login
   
       // Use navigate instead of history.push

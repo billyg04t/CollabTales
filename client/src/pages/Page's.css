@@ -55,11 +55,12 @@ body {
   background-color: #333;
   padding: 10px;
   color: white;
+  align-items: center;
 }
 
- .profile{
-  text-align: center;
- }
+.profile {
+  margin: 0 auto;
+}
  
 .navLink {
   text-decoration: none;
@@ -68,7 +69,7 @@ body {
 
 .navLinkContainer {
   display: flex;
-  gap: 650px; /* Adjust the gap according to your preference */
+  align-items: center;
 }
 
 .navLink:hover {
@@ -251,7 +252,7 @@ a {
 
 @media only screen and (max-width: 600px) {
   .dashboardContainer {
-    padding: 10px; /* Adjust spacing for smaller screens */
+    padding: 10px;
   }
 
   .contentWrapper {
@@ -261,14 +262,50 @@ a {
 
   .leftSidebar,
   .rightSidebar {
-    width: 100%; /* Take full width on smaller screens */
+    width: 100%; 
   }
 
   .mainFeed {
-    width: 100%; /* Take full width on smaller screens */
+    width: 100%;
   }
 
-  /* Add more styles as needed for a better mobile layout */
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navLinkContainer {
+    margin-top: 10px; /* Adjust as needed */
+  }
+
+  .authButton {
+    margin-top: 10px; /* Adjust as needed */
+  }
+
+  .profile {
+    margin: 10px 0; /* Center the profile link in column layout */
+  }
+
+.weather-box {
+  border: 3px solid #000000;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  height: 200px;
+  border-radius: 15px;
+  margin-right: 75px;
+}
+
+.postForm textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  resize: none;
+}
 }
 
 @media screen and (max-width: 768px) {
@@ -317,4 +354,4 @@ a {
     </div>
   </div>
   );
-}; */
+}; 
