@@ -2,13 +2,14 @@ import { gql } from '@apollo/client';
 
 // Query for user authentication
 export const AUTH_QUERY = gql`
-  query auth {
-    user {
-      _id
-      username
-    }
+query {
+  getUser {
+    _id
+    username
   }
+}
 `;
+
 
 // Query for fetching a specific story
 export const GET_STORY = gql`
@@ -73,20 +74,37 @@ export const GET_CONTRIBUTION = gql`
 `;
 
 // Query for fetching recent story contributions
+ // Query for fetching recent story contributions
 export const CONTRIBUTIONS_QUERY = gql`
-  query getRecentContributions {
-    recentContributions {
+query getRecentContributions {
+  recentContributions {
+    _id
+    user {
       _id
-      user {
-        _id
-        username
-      }
-      title
-      content
-      created_at
+      username
     }
+    title
+    content
+    created_at
   }
+}
 `;
+// // Query for fetching recent story contributions
+// export const CONTRIBUTIONS_QUERY = gql`
+//   query getRecentContributions {
+//     recentContributions {
+//       _id
+//       user {
+//         _id
+//         username
+//       }
+//       title
+//       content
+//       created_at
+//     }
+//   }
+// `;
+
 
 // Query for fetching contributions by user
 export const GET_CONTRIBUTIONS_BY_USER = gql`
