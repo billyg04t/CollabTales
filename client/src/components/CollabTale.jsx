@@ -1,5 +1,4 @@
 // CollabTale.js
-
 import React, { useState } from 'react';
 import { useMutation, useQuery, gql } from '@apollo/client';
 

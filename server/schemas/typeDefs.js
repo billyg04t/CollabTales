@@ -26,19 +26,19 @@ const typeDefs = `
     created_at: Date
   }
 
-
   type Query {
     getUser(userId: ID): User
     getContribution(contributionId: ID!): Contribution
     getStory(storyId: ID!): Story
     hello: String
+    me: User 
    }
 
    type AuthPayload {
     token: String
     user: User
   }
-  
+
 
    type Mutation {
     addUser(username: String!, email: String!, password: String!): AuthPayload!
