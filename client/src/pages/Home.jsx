@@ -43,8 +43,8 @@ const Home = () => {
   };
   
   return (
-    <div className="off-white-background card" style={{ border: 'none' }}>
-      <div className="card-header card card-rounded bg-dark text-center">
+    <div className="off-white-background" style={{ border: 'none' }}>
+       <div className="card text-center" style={{ backgroundColor: '#333', color: 'white' }}>
         <h1>CollabTales</h1>
         {authLoading ? (
           <div>Loading authentication...</div>
