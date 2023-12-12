@@ -1,5 +1,8 @@
 const { User, Contribution, Story } = require('../models');
-const { signToken, AuthenticationError } = require('../JWT/auth');
+const { signToken, AuthenticationError } = require('../utils/auth');
+const { hashPassword, comparePasswords } = require('../utils/authService');
+
+const secret = 'your-secret-key'; // Replace with your actual secret key
 
 const resolvers = {
   Query: {
@@ -18,27 +21,52 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+      // Hash the password before storing it
+      const hashedPassword = await hashPassword(password);
+
+      const user = await User.create({ username, email, password: hashedPassword });
       const token = signToken(user);
       return { token, user };
     },
     login: async (parent, { email, password }) => {
+      console.log('Received login request with email:', email);
+      console.log('Login Attempt with Email:', email);
+    
       const user = await User.findOne({ email });
-
+      console.log('Hashed Password in the Database:', user.password);
+    
       if (!user) {
-        throw AuthenticationError;
+        console.error('User not found for email:', email);
+        throw new AuthenticationError('Invalid email or password');
       }
+    
+      // Compare the provided password with the hashed password from the database
+      const correctPw = await comparePasswords(password, user.password);
+    
+      console.log('Entered Password:', password);
+console.log('Hashed Password in Database:', user.password);
 
-      const correctPw = await user.isCorrectPassword(password);
-
-      if (!correctPw) {
-        throw AuthenticationError;
-      }
-
+if (!correctPw) {
+  console.error('Incorrect password for email:', email);
+  throw new AuthenticationError('Invalid email or password');
+}
+    
+      // Create the token
       const token = signToken(user);
-
+    
+      try {
+        // Verify the token and decode the payload
+        const decoded = jwt.verify(token, secret);
+        console.log('Decoded token:', decoded);
+      } catch (error) {
+        console.error('Token verification error:', error);
+        throw new AuthenticationError('Could not authenticate user.');
+      }
+    
+      console.log('Login successful for email:', email);
       return { token, user };
     },
+    
     updateUser: async (_, args, context) => {
       if (context.user) {
         return User.findByIdAndUpdate(context.user.id, args, {
@@ -72,26 +100,39 @@ const resolvers = {
 
       throw new AuthenticationError('User not authenticated');
     },
-    addContribution: async (_, { userId, storyId, content }, context) => {
-      if (context.user) {
+    addContribution: async (_, { userId, storyId, title, content }, context) => {
+      try {
+        // Check if the user is authenticated
+        if (!context.user) {
+          throw new AuthenticationError('User not authenticated');
+        }
+
+        // Use provided userId or fallback to the authenticated user's ID
+        const authorId = userId || context.user.id;
+
+        // Create a new contribution
         const contribution = await Contribution.create({
-          author: context.user.id,
+          user: authorId,
+          title: title || null, // If no title is provided, set it to null
           content,
         });
 
-        await Story.findByIdAndUpdate(storyId, {
-          $push: { contributions: contribution },
-        });
+        // If a storyId is provided, add the contribution to the story
+        if (storyId) {
+          await Story.findByIdAndUpdate(storyId, {
+            $push: { contributions: contribution },
+          });
+        }
 
         return contribution;
+      } catch (error) {
+        console.error('Error adding contribution:', error);
+        throw error;
       }
-
-      throw new AuthenticationError('User not authenticated');
     },
-    // Add other mutation resolvers as needed
+    // Additional resolvers for relationships between types (if any)
   },
 
-  // Additional resolvers for relationships between types (if any)
   User: {
     contributions: async (user) => Contribution.find({ author: user.id }),
     // Add other user-related resolvers as needed

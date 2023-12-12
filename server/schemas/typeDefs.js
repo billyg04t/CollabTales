@@ -1,5 +1,3 @@
-const { gql } = require('apollo-server');
-
 const typeDefs = `
   scalar Date
   type User {
@@ -30,7 +28,7 @@ const typeDefs = `
 
 
   type Query {
-    getUser(userId: ID!): User
+    getUser(userId: ID): User
     getContribution(contributionId: ID!): Contribution
     getStory(storyId: ID!): Story
     hello: String
@@ -43,7 +41,7 @@ const typeDefs = `
   
 
    type Mutation {
-    addUser(username: String!, email: String!, password: String!): AuthPayload
+    addUser(username: String!, email: String!, password: String!): AuthPayload!
     updateUser(id: ID!, username: String, email: String, password: String): User
     createStory(title: String!, content: String!, genre: String!, authorId: ID!): Story
     updateStory(id: ID!, title: String, content: String, genre: String): Story
