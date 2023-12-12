@@ -9,31 +9,39 @@ import "./Page's.css";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
+  const { loading: authLoading, error: authError, data: authData } = useQuery(AUTH_QUERY);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const [loginUser] = useMutation(LOGIN_USER);
+  const [loginUser, { error, data }] = useMutation(LOGIN_USER);
 
   const handleLogin = async () => {
     try {
+      console.log('Email:', email);
+      console.log('Password:', password);
+  
       const { data } = await loginUser({
         variables: { email, password },
       });
-
-      const { token } = data.login;
+  
+      const { token } = loginResult.data.login;
       AuthService.login(token);  // Use AuthService to handle login
-
+  
       // Use navigate instead of history.push
       navigate('/dashboard');
     } catch (error) {
+      console.error('Login error:', error);
+  
       if (error.message.includes('User not found') || error.message.includes('Incorrect password')) {
         console.error('Authentication failed:', error.message);
+        // Handle the authentication failure (e.g., display an error message to the user)
+      } else {
+        // Handle other error scenarios
+        console.error('An error occurred during login:', error.message);
       }
     }
   };
-
+  
   return (
     <div className="off-white-background card" style={{ border: 'none' }}>
       <div className="card-header card card-rounded bg-dark text-center">
@@ -69,6 +77,11 @@ const Home = () => {
                     </Link>
                   </div>
                 </div>
+                {error && (
+                  <div className="my-3 p-3 bg-danger text-white">
+                    {error.message}
+                  </div>
+                )}
               </div>
             )}
           </div>

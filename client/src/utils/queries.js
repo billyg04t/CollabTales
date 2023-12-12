@@ -2,12 +2,12 @@ import { gql } from '@apollo/client';
 
 // Query for user authentication
 export const AUTH_QUERY = gql`
-  query auth($userId: ID!) {
-    getUser(userId: $userId) {
-      _id
-      username
-    }
+query {
+  getUser {
+    _id
+    username
   }
+}
 `;
 
 
