@@ -80,7 +80,7 @@ const Dashboard = () => {
   return (
     <div>
       {/* CollabTales Title and Navbar */}
-      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)' }}>
+      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
         <div>
           {/* Updated h1 element without a link */}
           <h1 className="collabTalesHeader">CollabTales</h1>

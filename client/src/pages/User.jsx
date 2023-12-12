@@ -42,12 +42,12 @@ const Profile = () => {
     <div style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
       {/* Include the Navbar component at the top */}
       <Navbar />
-
+  
       <div className="container mt-5" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
         <h2 className="text-center mb-4">
           Viewing {userParam ? `${user.username}'s` : 'your'} profile
         </h2>
-
+  
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="card mb-4" style={{ backgroundColor: '#333', color: 'white' }}>
@@ -57,7 +57,7 @@ const Profile = () => {
                 <p className="card-text">Email: {user.email}</p>
               </div>
             </div>
-
+  
             <div className="card" style={{ backgroundColor: '#333', color: 'white' }}>
               <div className="card-body">
                 <h3 className="card-title">Contributions</h3>
@@ -77,15 +77,11 @@ const Profile = () => {
             </div>
           </div>
         </div>
-
+  
         {!userParam && (
           <div className="row justify-content-center mt-4">
             <div className="col-md-8">
-              <div className="card" style={{ backgroundColor: '#333', color: 'white' }}>
-                <div className="card-body">
-                  {/* Add a form or any other content for creating new posts */}
-                </div>
-              </div>
+
             </div>
           </div>
         )}
