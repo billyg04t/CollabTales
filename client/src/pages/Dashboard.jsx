@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
-import MyCalendar from './MyCalendar';
-import Weather from './WeatherWidge';
+
 
 const Dashboard = () => {
   // Use your query for recent stories
