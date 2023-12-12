@@ -9,6 +9,11 @@ import Weather from './WeatherWidge';
 
 const Dashboard = () => {
   // Use your query for recent stories
+  const handleLogout = () => {
+    // Implement your logout logic here
+    // You may need to clear authentication tokens or perform any necessary cleanup
+    setIsLoggedOut(false);
+  };
   
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
     GET_RECENT_STORIES,
@@ -19,6 +24,7 @@ const Dashboard = () => {
 
 // Sets the navbar to login or signout stage
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(true);
   const [newPostContent, setNewPostContent] = useState('');
   const [posts, setPosts] = useState([]);
 
@@ -34,7 +40,6 @@ const Dashboard = () => {
 
     setNewPostContent('');
   };
-
   const recentStories = storiesData?.recentStories || []
   console.log(storiesData)
 
@@ -86,15 +91,13 @@ const Dashboard = () => {
             <Link to="/profile" className="profile navLink ">Profile</Link>
             
 
-            {/* Login/Signup button */}
+            {/* Logout button */}
             <div className="authButton">
               {isLoggedIn ? (
-                <button onClick={() => setIsLoggedIn(false)}>Logout</button>
-              ) : (
+                <button onClick={handleLogout}>Logout</button>
+                   ) : (
                 <>
-                  <Link to="/" className="navLink">Login</Link>
-                  <span className="orText">or</span>
-                  <Link to="/signup" className="navLink">Signup</Link>
+                  <Link to="/" className="navLink">Logout</Link>
                 </>
               )}
             </div>
