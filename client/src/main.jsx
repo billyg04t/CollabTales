@@ -7,6 +7,8 @@ import NotFound from './pages/NotFound.jsx';
 import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
+import User from './pages/User.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -29,7 +31,11 @@ const router = createBrowserRouter([
       {
         path: '/dashboard', // Added route for Dashboard
         element: <Dashboard />
-      }
+      },
+      {
+        path: '/User',
+        element: <User />
+      },
     ],
   },
 ]);

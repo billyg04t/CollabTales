@@ -6,8 +6,6 @@ import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css";
 import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
-import StoryList from '../components/StoryList';
-import StoryForm from '../components/StoryForm';
 
 const Dashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -60,15 +58,17 @@ const Dashboard = () => {
   return (
     <div>
       {/* CollabTales Title and Navbar */}
-      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)' }}>
+      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
         <div>
           <h1 className="collabTalesHeader">CollabTales</h1>
 
           {/* Navbar with login/logout button */}
           <nav className="navbar">
             <Link to="/" className="navLink">Home</Link>
-            <Link to="/profile" className="profile navLink">Profile</Link>
+            <Link to="/profile" className="profile navLink ">Profile</Link>
+            
 
+            {/* Logout button */}
             <div className="authButton">
               {isLoggedIn ? (
                 <button onClick={handleLogout}>Logout</button>
