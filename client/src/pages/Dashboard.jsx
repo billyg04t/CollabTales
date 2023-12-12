@@ -6,6 +6,7 @@ import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
+import Navbar from './Navbar';
 
 const Dashboard = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -95,7 +96,7 @@ const Dashboard = () => {
           <nav className="navbar">
             
             <Link to="/" className="navLink">Home</Link>
-            <Link to="/profile" className="profile navLink ">Profile</Link>
+            <Link to="/User" className="profile navLink ">Profile</Link>
             
 
             {/* Logout button */}

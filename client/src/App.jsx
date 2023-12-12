@@ -2,7 +2,6 @@ import './App.css';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-
 import "./pages/Page's.css";
 
 // Construct our main GraphQL API endpoint
@@ -33,7 +32,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="">
-        <Outlet />
+       <Outlet />
       </div>
     </ApolloProvider>
   );
