@@ -81,10 +81,10 @@ const Dashboard = () => {
 
           {/* Navbar with login/signup buttons */}
           <nav className="navbar">
-            <div className='navLinkContainer'>
+            
             <Link to="/" className="navLink">Home</Link>
             <Link to="/profile" className="profile navLink ">Profile</Link>
-            </div>
+            
 
             {/* Login/Signup button */}
             <div className="authButton">

@@ -24,7 +24,7 @@ const Footer = () => {
           >
             ❤️
           </span>{' '}
-          by the Tech Thoughts team.
+          CollabTales | 2023
         </h4>
       </div>
     </footer>
