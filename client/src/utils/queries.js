@@ -74,16 +74,18 @@ export const GET_CONTRIBUTION = gql`
 
 // Query for fetching recent story contributions
 export const CONTRIBUTIONS_QUERY = gql`
-_id
-user {
-  _id
-  username
-}
-title
-content
-created_at
-}
-}
+  query getRecentContributions {
+    recentContributions {
+      _id
+      user {
+        _id
+        username
+      }
+      title
+      content
+      created_at
+    }
+  }
 `;
 
 // Query for fetching contributions by user
