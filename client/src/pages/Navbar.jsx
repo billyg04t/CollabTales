@@ -23,7 +23,7 @@ const Navbar = () => {
           {/* Logout button */}
           <div className="authButton">
             {isLoggedIn ? (
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
             ) : (
               <Link to="/" className="navLink">Logout</Link>
             )}
