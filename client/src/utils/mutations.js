@@ -2,14 +2,9 @@ import { gql } from '@apollo/client';
 
 // Mutation for adding a contribution to the story
 export const ADD_CONTRIBUTION = gql`
-mutation AddContribution($userId: ID!, $storyId: ID!, $title: String!, $content: String!) {
-  addContribution(userId: $userId, storyId: $storyId, title: $title, content: $content) {
+mutation AddContribution( $storyId: ID!, $title: String!, $content: String!) {
+  addContribution(storyId: $storyId, content: $content) {
     _id
-    user {
-      _id
-      username
-    }
-    title
     content
     created_at
   }

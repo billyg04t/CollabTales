@@ -19,7 +19,7 @@ query getStory($storyId: ID!) {
     title
     content
     genre
-    createdAt
+    created_at
   }
 }
 `;
@@ -58,13 +58,8 @@ export const GET_CONTRIBUTION = gql`
   query getContribution($id: ID!) {
     contribution(id: $id) {
       _id
-      user {
-        _id
-        username
-      }
-      title
       content
-      created_at
+      createdAt
     }
   }
 `;
