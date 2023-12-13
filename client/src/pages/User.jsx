@@ -6,29 +6,23 @@ import Navbar from './Navbar';
 //import ContributionList from '../components/ContributionList';
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 import Auth from '../utils/auth';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 const Profile = () => {
   const { username: userParam } = useParams();
-
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
   });
-
   const user = data?.me || data?.user || {};
-  console.log(user) 
+  console.log(user)
   if (
-    Auth.loggedIn() && 
+    Auth.loggedIn() &&
     Auth.getProfile().authenticatedPerson.username === userParam
   ) {
     return <Navigate to="/me" />;
   }
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (!user?.username) {
     return (
       <h4>
@@ -37,17 +31,14 @@ const Profile = () => {
       </h4>
     );
   }
-
   return (
-    <div>
-      {/* Navbar with login/signup buttons */}
+    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed'}}>
+      {/* Include the Navbar component at the top */}
       <Navbar />
-  
-      <div className="container mt-5">
-        <h2 className="text-center mb-4" style={{ color: 'white' }}>
+      <div className="container mt-5" style={{minHeight: '100vh', color: 'white' }}>
+        <h2 className="text-center mb-4">
           Viewing {userParam ? `${user.username}'s` : 'your'} profile
         </h2>
-  
         <div className="row justify-content-center">
           <div className="col-md-8">
             <div className="card mb-4" style={{ backgroundColor: '#333', color: 'white' }}>
@@ -57,7 +48,6 @@ const Profile = () => {
                 <p className="card-text">Email: {user.email}</p>
               </div>
             </div>
-  
             <div className="card" style={{ backgroundColor: '#333', color: 'white' }}>
               <div className="card-body">
                 <h3 className="card-title">Contributions</h3>
@@ -77,11 +67,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-  
         {!userParam && (
           <div className="row justify-content-center mt-4">
             <div className="col-md-8">
-  
             </div>
           </div>
         )}
