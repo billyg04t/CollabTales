@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import User from './pages/User.jsx'
 import SingleStory from './pages/SingleStory.jsx';  // Import the new page
 
+import Footer from './components/Footer.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,14 @@ const router = createBrowserRouter([
         element: <User />
       },
       {
+
         path: '/story/:storyId', // Add a dynamic route parameter for storyId
         element: <SingleStory />
+      },
+      {
+        path: '/Footer',
+        element: <Footer />
+
       },
     ],
   },
