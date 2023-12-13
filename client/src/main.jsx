@@ -9,7 +9,7 @@ import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import User from './pages/User.jsx'
-import Footer from './components/Footer.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -45,10 +45,7 @@ const router = createBrowserRouter([
         path: '/User',
         element: <User />
       },
-      {
-        path: '/Footer',
-        element: <Footer />
-      },
+    
     ],
   },
 ]);
