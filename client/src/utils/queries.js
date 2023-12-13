@@ -13,19 +13,15 @@ query {
 
 // Query for fetching a specific story
 export const GET_STORY = gql`
-  query getStory($id: ID!) {
-    story(id: $id) {
-      _id
-      title
-      content
-      genre
-      created_at
-      author {
-        _id
-        username
-      }
-    }
+query getStory($storyId: ID!) {
+  getStory(storyId: $storyId) {
+    _id
+    title
+    content
+    genre
+    createdAt
   }
+}
 `;
 
 export const GET_RECENT_STORIES = gql`
