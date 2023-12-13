@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
+import "./Page's.css";
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -45,41 +46,42 @@ const Signup = () => {
 
   return (
     <div className="off-white-background d-flex align-items-center justify-content-center vh-100">
-      <div className="card card-rounded w-50">
+      <div className="card card-rounded w-75" style={{ maxWidth: "400px" }}>
         <div className="card-header bg-dark text-center">
           <h1>Signup</h1>
-          <div>
-            <label>
-              Username:
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label>
-               Email:
-              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-              Password:
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <label>
-              Confirm Password:
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </label>
+          <div className="form-group mb-3">
+            <label className="text-end">Username:</label>
+            <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </div>
+          <div className="form-group mb-3">
+            <label className="text-end">Email:</label>
+            <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+          <div className="form-group mb-3">
+            <label className="text-end">Password:</label>
+            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div className="form-group mb-3">
+            <label className="text-end">Confirm Password:</label>
+            <input
+              type="password"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          <div className="text-center">
             <button className="btn btn-success" onClick={handleSignup} disabled={loading}>
               {loading ? 'Signing up...' : 'Sign Up'}
-             </button>
+            </button>
           </div>
-          <p>
+          <p className="text-center mt-2">
             Already have an account? <Link to="/">Log In</Link>
           </p>
         </div>
       </div>
     </div>
-  );
+  );   
 };
 
 export default Signup;
