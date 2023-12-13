@@ -5,13 +5,13 @@ import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
-// import Weather from './WeatherWidge';
 import Navbar from './Navbar';
-import Auth from '../utils/auth';
 
 const Dashboard = () => {
   // Use your query for recent stories
   const handleLogout = () => {
+    // Implement your logout logic here
+    // You may need to clear authentication tokens or perform any necessary cleanup
     setIsLoggedOut(false);
   };
   
@@ -27,27 +27,18 @@ const Dashboard = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const [newPostContent, setNewPostContent] = useState('');
   const [posts, setPosts] = useState([]);
-console.log(Auth.getProfile())
-console.log(Auth.getProfile().username)
-console.log(Auth.getProfile().authenticatedPerson)
-  const handleCreatePost = () => {
-    if (Auth.loggedIn()) {
-      const username = Auth.getProfile().authenticatedPerson.username;
 
-      // Create a new post object with the current timestamp and actual username
-      const newPost = {
-        id: Date.now(),
-        username: username,
-        timestamp: new Date().toLocaleString(),
-        content: newPostContent,
-      };
-      
-      setPosts([newPost, ...posts]);
-      setNewPostContent('');
-    } else {
-      // Handle the case where the user is not logged in
-      console.error('User is not logged in');
-    }
+  const handleCreatePost = () => {
+    // Create a new post object with the current timestamp
+    const newPost = {
+      id: Date.now(), 
+      username: 'Username', // Replace with the actual username or fetch from authentication
+      timestamp: new Date().toLocaleString(),
+      content: newPostContent,
+    };
+    setPosts([newPost, ...posts]);
+
+    setNewPostContent('');
   };
   const recentStories = storiesData?.recentStories || []
   console.log(storiesData)
@@ -87,31 +78,31 @@ console.log(Auth.getProfile().authenticatedPerson)
 
   return (
     <div>
-      {/* CollabTales Title and Navbar */}
-      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
-        <div>
-          {/* Updated h1 element without a link */}
-          <h1 className="collabTalesHeader">CollabTales</h1>
-
-          {/* Navbar with login/signup buttons */}
-          <nav className="navbar">
-            
-            <Link to="/Dashboard" className="navLink">Home</Link>
-            <Link to="/User" className="profile navLink ">Profile</Link>
-            
-
-            {/* Logout button */}
-            <div className="authButton">
-              {isLoggedIn ? (
-                <button onClick={handleLogout}>Logout</button>
-                   ) : (
-                <>
-                  <Link to="/" className="navLink">Logout</Link>
-                </>
-              )}
-            </div>
-          </nav>
+    {/* CollabTales Title and Navbar */}
+    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
+      <div>
+        {/* Updated h1 element without a link */}
+        <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
+          <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
+            CollabTales
+          </h1>
         </div>
+        {/* Navbar with login/signup buttons */}
+        <nav className="navbar">
+          <Link to="/" className="navLink">Home</Link>
+          <Link to="/User" className="profile navLink ">Profile</Link>
+          {/* Logout button */}
+          <div className="authButton">
+            {isLoggedIn ? (
+              <button onClick={handleLogout}>Logout</button>
+            ) : (
+              <>
+                <Link to="/" className="navLink">Logout</Link>
+              </>
+            )}
+          </div>
+        </nav>
+      </div>
 
         {/* Main Content Area */}
         <div className="mainContent">
@@ -140,7 +131,7 @@ console.log(Auth.getProfile().authenticatedPerson)
                 <div key={post.id} className="postCard">
                   
                   <div className="postHeader">
-
+                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
                     <div>
                       <p className="username">{post.username}</p>
                       <p className="timestamp">{post.timestamp}</p>
@@ -154,12 +145,6 @@ console.log(Auth.getProfile().authenticatedPerson)
                 </div>
                  ))}
             </div>
-            <div className="rightSidebar">
-                  {/* Include Weather component */}
-                  
-                  {/* Text on the right side */}
-                </div>
-
           </div>
         </div>
       </div>

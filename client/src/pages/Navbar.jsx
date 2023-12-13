@@ -20,7 +20,7 @@ const Navbar = () => {
   
         {/* Navbar with login/signup buttons */}
         <nav className="navbar">
-          <Link to="/dashboard" className="dashboard navLink">Home</Link>
+          <Link to="/" className="navLink">Home</Link>
           <Link to="/user" className="profile navLink">Profile</Link>
   
           {/* Logout button */}
