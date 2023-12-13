@@ -45,8 +45,8 @@ const Signup = () => {
 
   return (
     <div className="off-white-background d-flex align-items-center justify-content-center vh-100">
-      <div className="card card-rounded w-50">
-        <div className="card-header bg-dark text-center">
+    <div className="card card-rounded w-50">
+      <div className="card-header bg-dark text-center">
           <h1>Signup</h1>
           <div>
             <label>
@@ -69,7 +69,7 @@ const Signup = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </label>
-            <button className="btn btn-success" onClick={handleSignup} disabled={loading}>
+            <button className="btn btn-success mb-15" onClick={handleSignup} disabled={loading}>
               {loading ? 'Signing up...' : 'Sign Up'}
              </button>
           </div>

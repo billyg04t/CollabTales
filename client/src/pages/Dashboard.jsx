@@ -7,6 +7,7 @@ import "./Page's.css"
 // import MyCalendar from './MyCalendar';
 // import Weather from './WeatherWidge';
 import Navbar from './Navbar';
+import Story from './Story';
 
 const Dashboard = () => {
   // Use your query for recent stories
