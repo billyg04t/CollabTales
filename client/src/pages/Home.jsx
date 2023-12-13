@@ -6,6 +6,7 @@ import { LOGIN_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import AuthService from '../utils/auth';
 import "./Page's.css";
+
 const Home = () => {
   const navigate = useNavigate();
   const { loading: authLoading, data: authData } = useQuery(AUTH_QUERY);
