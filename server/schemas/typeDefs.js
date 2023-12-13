@@ -23,7 +23,7 @@ const typeDefs = `
     genre: String!
     author: User
     contributions: [Contribution]
-    createdAt: Date
+    created_at: Date
   }
 
   type Query {
