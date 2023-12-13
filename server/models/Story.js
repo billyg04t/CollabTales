@@ -19,11 +19,6 @@ const storySchema = new Schema({
       ref: 'Contribution',
     },
   ],
-  author: { 
-    type: Schema.Types.ObjectId, 
-    required: true,
-    ref: 'User' 
-  },
   created_at: { 
     type: Date, 
     default: Date.now 

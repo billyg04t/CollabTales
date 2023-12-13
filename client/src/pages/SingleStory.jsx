@@ -1,18 +1,13 @@
-// Import the `useParams()` hook from React Router
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-
 import ContributionList from '../components/ContributionList';
 import ContributionForm from '../components/ContributionForm';
-
 import { GET_STORY } from '../utils/queries';
 
 const SingleStory = () => {
-  // Use `useParams()` to retrieve value of the route parameter `:storyId`
   const { storyId } = useParams();
-
   const { loading, data } = useQuery(GET_STORY, {
-    // Pass the `storyId` URL parameter into query to retrieve this story's data
     variables: { storyId: storyId },
   });
 
@@ -25,9 +20,9 @@ const SingleStory = () => {
   return (
     <div className="my-3">
       <h3 className="card-header bg-dark text-light p-2 m-0">
-      {story.author.username} <br />
+        {story.title} <br />
         <span style={{ fontSize: '1rem' }}>
-          created this story on {story.createdAt}
+          Created this story on {new Date(story.createdAt).toLocaleDateString()}
         </span>
       </h3>
       <div className="bg-light py-4">
