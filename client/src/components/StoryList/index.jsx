@@ -16,12 +16,18 @@ const StoryList = ({ stories }) => {
                 >
                   {story.title} <br />
                   <span style={{ fontSize: '1rem' }}>
-                    by {story.author} on {new Date(story.created_at).toLocaleDateString()}
+                    Created on {new Date(story.created_at).toLocaleDateString()}
                   </span>
                 </Link>
               </div>
               <div className="card-body bg-light p-2">
                 <p>{story.content}</p>
+              </div>
+              {/* Additional styling for the StoryList component */}
+              <div className="card-footer bg-light p-2">
+                <div className="postActions" style={{ textAlign: 'center', color: 'white' }}>
+                  {/* Add any additional actions or buttons here */}
+                </div>
               </div>
             </div>
           ))}

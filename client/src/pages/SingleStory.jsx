@@ -1,33 +1,32 @@
-// Import the `useParams()` hook from React Router
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-
 import ContributionList from '../components/ContributionList';
 import ContributionForm from '../components/ContributionForm';
-
 import { GET_STORY } from '../utils/queries';
 
 const SingleStory = () => {
-  // Use `useParams()` to retrieve value of the route parameter `:storyId`
   const { storyId } = useParams();
-
-  const { loading, data } = useQuery(GET_STORY, {
-    // Pass the `storyId` URL parameter into query to retrieve this story's data
-    variables: { storyId: storyId },
+  const { loading, data, error } = useQuery(GET_STORY, {
+    variables: { storyId },
   });
 
-  const story = data?.story || {};
+  const story = data?.getStory || {};
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    console.error('Error fetching story:', error);
+    return <div>Error fetching story</div>;
+  }
   return (
     <div className="my-3">
       <h3 className="card-header bg-dark text-light p-2 m-0">
-      {story.author.username} <br />
+        {story.title} - {story.genre} <br />
         <span style={{ fontSize: '1rem' }}>
-          created this story on {story.createdAt}
+          Created this story on {new Date(story.created_at).toLocaleDateString()}
         </span>
       </h3>
       <div className="bg-light py-4">
@@ -40,7 +39,7 @@ const SingleStory = () => {
             lineHeight: '1.5',
           }}
         >
-          {story.storyText}
+          {story.content}
         </blockquote>
       </div>
 

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_STORY } from '../../utils/mutations';
 import { GET_RECENT_STORIES, QUERY_ME } from '../../utils/queries';
-
 import Auth from '../../utils/auth';
 
 const StoryForm = () => {
@@ -17,19 +16,26 @@ const StoryForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+  
     try {
-      const { data } = await addStory({
-        variables: {
-          title: storyTitle,
-          content: storyContent,
-          genre: storyGenre,
-        },
-      });
-
-      if (data && data.addStory) {
-        setStoryTitle('');
-        setStoryContent('');
-        setStoryGenre('');
+      if (Auth.loggedIn()) {
+  
+        const { data } = await addStory({
+          variables: {
+            title: storyTitle,
+            content: storyContent,
+            genre: storyGenre,
+          },
+        });
+  
+        if (data && data.addStory) {
+          setStoryTitle('');
+          setStoryContent('');
+          setStoryGenre('');
+          // Optionally, you can add a success message or redirect the user.
+        }
+      } else {
+        console.log('User not logged in');
       }
     } catch (err) {
       console.error(err);

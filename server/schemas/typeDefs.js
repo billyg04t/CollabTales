@@ -8,9 +8,7 @@ const typeDefs = `
   }
 
   type Contribution {
-    _id: ID!
     user: User
-    title: String
     content: String
     created_at: Date
     author: User  # Add this line
@@ -25,7 +23,6 @@ const typeDefs = `
     contributions: [Contribution]
     created_at: Date
   }
-
 
   type Query {
     getUser(userId: ID): User
@@ -45,9 +42,9 @@ const typeDefs = `
    type Mutation {
     addUser(username: String!, email: String!, password: String!): AuthPayload!
     updateUser(id: ID!, username: String, email: String, password: String): User
-    addStory(title: String!, content: String!, genre: String!, authorId: ID!): Story
+    addStory(title: String!, content: String!, genre: String!, username: String): Story
     updateStory(id: ID!, title: String, content: String, genre: String): Story
-    addContribution(storyId: ID!, content: String!): Contribution
+    addContribution(storyId: ID!, content: String): Contribution
     login(email: String!, password: String!): AuthPayload
     # Add other mutations as needed
   

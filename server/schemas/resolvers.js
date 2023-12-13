@@ -9,11 +9,7 @@ const resolvers = {
     getUser: async (_, { userId }) => User.findById(userId),
     getContribution: async (_, { contributionId }) => Contribution.findById(contributionId),
     getStory: async (_, { storyId }) => {
-      const story = await Story.findById(storyId).populate('author').populate({
-        path: 'contributions',
-        populate: { path: 'author' }
-      });
-
+      const story = await Story.findById(storyId);
       return story;
     },
 
@@ -31,7 +27,7 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
+    addUser: async (parent, { username, email, password}) => {
       // Hash the password before storing it
 
       const user = await User.create({ username, email, password });
@@ -77,19 +73,26 @@ if (!correctPw) {
 
       throw new AuthenticationError('User not authenticated');
     },
-    addStory: async (_, { title, content, genre }, context) => {
+    addStory: async (_, { title, content, genre, username }, context) => {
       try {
         if (context.user) {
-          // Use the authenticated user's ID as the authorId
-          const authorId = context.user.id;
-
+          // Use the authenticated user's username if not provided
+          const authorUsername = username || context.user.username;
+  
+          // Find the user by username
+          const user = await User.findOne({ username: authorUsername });
+  
+          if (!user) {
+            throw new Error('User not found');
+          }
+  
           const story = await Story.create({
             title,
             content,
             genre,
-            author: authorId, // Set the author field to the user's ID
+            author: user,
           });
-
+  
           return story;
         } else {
           throw new AuthenticationError('User not authenticated');
