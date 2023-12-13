@@ -42,56 +42,55 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-    {/* CollabTales Title and Navbar */}
-    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed' }}>
-  <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
-        {/* Updated h1 element without a link */}
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      {/* CollabTales Title and Navbar */}
+      <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed',}}>
         <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
-          <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
-            CollabTales
-          </h1>
-        </div>
-        {/* Navbar with login/signup buttons */}
-        <nav className="navbar" style={{ backgroundColor: '#333' }}>
-    <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
-    <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
-
-       {/* Logout button */}
-    <div className="authButton">
-      {isLoggedIn ? (
-        <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
-      ) : (
-        <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
-      )}
-    </div>
-  </nav>
-      </div>
-
-      <div className="mainContent">
-    <div className="contentWrapper">
-      <div className="leftSidebar" style={{ backgroundColor: '#333', color: 'white' }}>
-        <MyCalendar />
-      </div>
-
-            <div className="mainFeed">             
-             {/* Display Recent Stories */}
-              <StoryList stories={recentStories} />
-
-              {/* Create Story Form */}
-              <StoryForm onCreateStory={handleCreateStory} />
+          {/* Updated h1 element without a link */}
+          <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
+            <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
+              CollabTales
+            </h1>
+          </div>
+          {/* Navbar with login/signup buttons */}
+          <nav className="navbar" style={{ backgroundColor: '#333', borderBottom: '2px solid white', marginBottom: '0' }}>
+            <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
+            <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
+            {/* Logout button */}
+            <div className="authButton">
+              {isLoggedIn ? (
+                <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
+              ) : (
+                <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
+              )}
             </div>
+          </nav>
+        </div>
+      </div>
+  
+      <div className="mainContent" style={{ flex: '1', marginTop: '0' }}>
+        <div className="contentWrapper" style={{ display: 'flex' }}>
+        <div className="leftSidebar" style={{ backgroundColor: '#555', color: 'white', width: '400px', padding: '10px', marginRight: '10px', border: '2px solid white' }}>
+            <MyCalendar />
+          </div>
+          <div className="mainFeed" style={{ flex: '1' }}>
+            {/* Display Recent Stories */}
+            <StoryList stories={recentStories} />
+  
+            {/* Create Story Form */}
+            <StoryForm onCreateStory={handleCreateStory} />
           </div>
         </div>
       </div>
-       {/* Footer */}
-  <footer style={{ backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center', marginTop: '440px'}}>
-    <p>Find us on GitHub:</p>
-    <a href="https://github.com/billyg04t/CollabTales" target="_blank" rel="noopener noreferrer">
-      <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style={{ width: '30px', height: '30px', margin: '5px' }} />
-      GitHub Repository
-    </a>
-  </footer>
+  
+      {/* Footer */}
+      <footer style={{ backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center' }}>
+        <p>Find us on GitHub:</p>
+        <a href="https://github.com/billyg04t/CollabTales" target="_blank" rel="noopener noreferrer">
+          <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style={{ width: '30px', height: '30px', margin: '5px' }} />
+          GitHub Repository
+        </a>
+      </footer>
     </div>
   );
 };

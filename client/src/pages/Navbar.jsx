@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../utils/auth';
+import "./Page's.css";
 
 const Navbar = () => {
   const isLoggedIn = Auth.loggedIn();
@@ -11,8 +12,7 @@ const Navbar = () => {
 
   return (
     <div className="dashboardContainer" style={{ backgroundColor: '#333' }}>
-      <div>
-        {/* Updated h1 element without a link */}
+      <div className="navbar-container">
         <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
           CollabTales
         </h1>
