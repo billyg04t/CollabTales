@@ -4,10 +4,11 @@ import Auth from '../utils/auth';
 
 const Navbar = () => {
   const isLoggedIn = Auth.loggedIn();
-  
+
   const handleLogout = () => {
-    // Add your logout logic here
+    Auth.logout(); // Call the logout function from AuthService
   };
+  
 
   return (
     <div className="dashboardContainer" style={{ backgroundColor: '#333' }}>
@@ -27,7 +28,9 @@ const Navbar = () => {
             {isLoggedIn ? (
               <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
             ) : (
-              <Link to="/" className="navLink">Logout</Link>
+              <Link to="/" onClick={handleLogout} className="navLink">
+                Logout
+              </Link>
             )}
           </div>
         </nav>

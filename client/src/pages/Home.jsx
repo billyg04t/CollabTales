@@ -43,7 +43,7 @@ const Home = () => {
   };
   
   return (
-    <div className="off-white-background" style={{ border: 'none' }}>
+    <div className="off-white-background" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', border: 'none' }}>
        <div className="card text-center" style={{ backgroundColor: '#333', color: 'white' }}>
         <h1>CollabTales</h1>
         {authLoading ? (
