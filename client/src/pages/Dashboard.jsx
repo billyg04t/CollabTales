@@ -84,7 +84,14 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      
+       {/* Footer */}
+  <footer style={{ backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center', marginTop: '440px'}}>
+    <p>Find us on GitHub:</p>
+    <a href="https://github.com/billyg04t/CollabTales" target="_blank" rel="noopener noreferrer">
+      <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style={{ width: '30px', height: '30px', margin: '5px' }} />
+      GitHub Repository
+    </a>
+  </footer>
     </div>
   );
 };
