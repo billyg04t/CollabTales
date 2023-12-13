@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_STORY } from '../../utils/mutations';
 import { GET_RECENT_STORIES, QUERY_ME } from '../../utils/queries';
-
 import Auth from '../../utils/auth';
 
 const StoryForm = () => {
   const [storyTitle, setStoryTitle] = useState('');
   const [storyContent, setStoryContent] = useState('');
   const [storyGenre, setStoryGenre] = useState('');
-  const [username, setUserName] = useState('');
-
-  useEffect(() => {
-    // Set the username when the component mounts
-    if (Auth.loggedIn()) {
-      const loggedInUsername = Auth.getProfile().authenticatedPerson.username;
-      setUserName(loggedInUsername);
-    }
-  }, []);
   
   const [addStory, { error }] = useMutation(ADD_STORY, {
     refetchQueries: [GET_RECENT_STORIES, 'getStories', QUERY_ME, 'me'],
@@ -29,13 +19,14 @@ const StoryForm = () => {
   
     try {
       if (Auth.loggedIn()) {
-        const username = Auth.getProfile().authenticatedPerson.username;
   
         const { data } = await addStory({
           variables: {
             title: storyTitle,
             content: storyContent,
             genre: storyGenre,
+            username: Auth.getProfile().authenticatedPerson.username,
+
           },
         });
   
@@ -43,7 +34,6 @@ const StoryForm = () => {
           setStoryTitle('');
           setStoryContent('');
           setStoryGenre('');
-          setStoryUser('');
           // Optionally, you can add a success message or redirect the user.
         }
       } else {
@@ -56,15 +46,13 @@ const StoryForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-  
+
     if (name === 'storyTitle') {
       setStoryTitle(value);
     } else if (name === 'storyContent') {
       setStoryContent(value);
     } else if (name === 'storyGenre') {
       setStoryGenre(value);
-    } else if (name === 'storyUser') {
-      setUserName(value); // Corrected from setStoryUser to setUserName
     }
   };
 
