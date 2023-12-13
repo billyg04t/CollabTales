@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
+
 // import MyCalendar from './MyCalendar';
 // import Weather from './WeatherWidge';
 import Navbar from './Navbar';
@@ -146,12 +147,12 @@ const Dashboard = () => {
                 </div>
                  ))}
             </div>
+
             <div className="rightSidebar">
                   {/* Include Weather component */}
                 
                   {/* Text on the right side */}
                 </div>
-
           </div>
         </div>
       </div>
