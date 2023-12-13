@@ -5,15 +5,24 @@ import { GET_RECENT_STORIES } from '../utils/queries';
 import { CREATE_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
-import Weather from './WeatherWidge';
+// import Weather from './WeatherWidge';
 import Navbar from './Navbar';
+import Auth from '../utils/auth';
+import Footer from '../components/Footer';
 
 const Dashboard = () => {
-  // Use your query for recent stories
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // You may need to clear authentication tokens or perform any necessary cleanup
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
+    setIsLoggedIn(true);
     setIsLoggedOut(false);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setIsLoggedIn(false);
+    setIsLoggedOut(true);
   };
   
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
@@ -33,7 +42,7 @@ const Dashboard = () => {
     // Create a new post object with the current timestamp
     const newPost = {
       id: Date.now(), 
-      username: 'Username', // Replace with the actual username or fetch from authentication
+      username: loggedInUser.username, 
       timestamp: new Date().toLocaleString(),
       content: newPostContent,
     };
@@ -79,6 +88,7 @@ const Dashboard = () => {
 
   return (
     <div>
+
     {/* CollabTales Title and Navbar */}
     <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
       <div>
@@ -87,6 +97,32 @@ const Dashboard = () => {
           <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
             CollabTales
           </h1>
+
+      {/* CollabTales Title and Navbar */}
+      <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
+        <div>
+          {/* Updated h1 element without a link */}
+          <h1 className="collabTalesHeader">CollabTales</h1>
+
+          {/* Navbar with login/signup buttons */}
+          <nav className="navbar">
+            
+            <Link to="/Dashboard" className="dashboard navLink">Home</Link>
+            <Link to="/User" className="profile navLink ">Profile</Link>
+            
+
+            {/* Logout button */}
+            <div className="authButton">
+              {isLoggedIn ? (
+                <button onClick={handleLogout}>Logout</button>
+                   ) : (
+                <>
+                  <Link to="/" className="navLink">Logout</Link>
+                </>
+              )}
+            </div>
+          </nav>
+
         </div>
         {/* Navbar with login/signup buttons */}
         <nav className="navbar">
@@ -148,7 +184,7 @@ const Dashboard = () => {
             </div>
             <div className="rightSidebar">
                   {/* Include Weather component */}
-                  <Weather />
+                  
                   {/* Text on the right side */}
                 </div>
 
