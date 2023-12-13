@@ -7,22 +7,26 @@ import { GET_STORY } from '../utils/queries';
 
 const SingleStory = () => {
   const { storyId } = useParams();
-  const { loading, data } = useQuery(GET_STORY, {
+  const { loading, data, error } = useQuery(GET_STORY, {
     variables: { storyId },
   });
 
-  const story = data?.story || {};
+  const story = data?.getStory || {};
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    console.error('Error fetching story:', error);
+    return <div>Error fetching story</div>;
+  }
   return (
     <div className="my-3">
       <h3 className="card-header bg-dark text-light p-2 m-0">
-        {story.title} <br />
+        {story.title} - {story.genre} <br />
         <span style={{ fontSize: '1rem' }}>
-          Created this story on {new Date(story.createdAt).toLocaleDateString()}
+          Created this story on {new Date(story.created_at).toLocaleDateString()}
         </span>
       </h3>
       <div className="bg-light py-4">

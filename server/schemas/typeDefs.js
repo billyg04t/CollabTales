@@ -8,9 +8,7 @@ const typeDefs = `
   }
 
   type Contribution {
-    _id: ID!
     user: User
-    title: String
     content: String
     created_at: Date
     author: User  # Add this line
@@ -23,7 +21,7 @@ const typeDefs = `
     genre: String!
     author: User
     contributions: [Contribution]
-    createdAt: Date
+    created_at: Date
   }
 
   type Query {
