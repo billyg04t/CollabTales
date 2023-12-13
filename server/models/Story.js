@@ -15,13 +15,12 @@ const storySchema = new Schema({
   },
   contributions: [
     {
-      type: String,
+      type: Schema.Types.ObjectId,
       ref: 'Contribution',
     },
   ],
-  
   author: { 
-    type: String, 
+    type: Schema.Types.ObjectId, 
     required: true,
     ref: 'User' 
   },

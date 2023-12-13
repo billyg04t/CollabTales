@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { GET_RECENT_STORIES } from '../utils/queries';
-import { CREATE_STORY } from '../utils/mutations';
+import { ADD_STORY } from '../utils/mutations';
 import "./Page's.css"
 import MyCalendar from './MyCalendar';
 import Navbar from './Navbar';
@@ -39,8 +39,8 @@ const Dashboard = () => {
   console.log(storiesData)
   const [newStoryTitle, setNewStoryTitle] = useState('');
   // Use the mutation hook for creating a new story
-  const [createStoryMutation, { loading: createStoryLoading }] = useMutation(
-    CREATE_STORY,
+  const [addStoryMutation, { loading: addStoryLoading }] = useMutation(
+    ADD_STORY,
     {
       // Optionally, you can update the cache or refetch queries after a successful mutation
       // update: (cache, { data: { createStory } }) => {
@@ -48,9 +48,9 @@ const Dashboard = () => {
       // },
     }
   );
-  const handleCreateStory = async () => {
+  const handlAddStory = async () => {
     try {
-      const response = await createStoryMutation({
+      const response = await addStoryMutation({
         variables: { title: newStoryTitle },
       });
       const newStory = response.data.createStory;
