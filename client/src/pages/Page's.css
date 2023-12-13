@@ -77,3 +77,22 @@ body {
   height: 100vh;
   margin: 0;
 }
+
+.postCard {
+  margin: 10px auto; /* Center the post card horizontally */
+  width: 25%; /* Adjust the width */
+}
+
+.postContent {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  margin: 10px 0; /* Adjust the vertical margin */
+}
+
+.postText {
+  word-wrap: break-word;
+  text-align: left; /* Adjust the text alignment as needed */
+}

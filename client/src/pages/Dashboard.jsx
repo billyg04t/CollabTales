@@ -61,61 +61,67 @@ const Dashboard = () => {
       console.error('Error creating a new story:', error);
     }
   };
+return (
+<div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed' }}>
+  <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
+    <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
+      CollabTales
+    </h1>
+  </div>
+  <nav className="navbar" style={{ backgroundColor: '#333' }}>
+    <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
+    <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
 
-  return (
-    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed'}}>
-      <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
-        <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
-          CollabTales
-        </h1>
+    {/* Logout button */}
+    <div className="authButton">
+      {isLoggedIn ? (
+        <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
+      ) : (
+        <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
+      )}
+    </div>
+  </nav>
+  <div className="mainContent">
+    <div className="contentWrapper">
+      <div className="leftSidebar" style={{ backgroundColor: '#333', color: 'white' }}>
+        <MyCalendar />
       </div>
-      <nav className="navbar" style={{ backgroundColor: '#333' }}>
-        <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
-        <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
-  
-        {/* Logout button */}
-        <div className="authButton">
-          {isLoggedIn ? (
-            <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
-          ) : (
-            <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
-          )}
+      <div className="mainFeed">
+        <div className="postForm" style={{ margin: 'auto', width: '50%', backgroundColor: '#333', padding: '20px', borderRadius: '10px', marginTop: '20px', color: 'white' }}>
+          <textarea
+            placeholder="What's on your mind?"
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+            style={{ width: '100%', marginBottom: '10px', color: 'black' }}
+          />
+          <button onClick={handleCreatePost}>Post</button>
         </div>
-      </nav>
-      <div className="mainContent">
-        <div className="contentWrapper">
-          <div className="leftSidebar" style={{ backgroundColor: '#333', color: 'white' }}>
-            <MyCalendar />
+        {posts.map((post) => (
+          <div key={post.id} className="postCard">
+  <div className="postHeader">
+    <div>
+      <p className="username" style={{ color: 'white', textAlign: 'center' }}>{post.username}</p>
+      <p className="timestamp" style={{ color: 'white', textAlign: 'center' }}>{post.timestamp}</p>
+    </div>
+  </div>
+  <div className="postContent">
+    <div className="postText" style={{ color: 'white', textAlign: 'center' }}>{post.content}</div>
+  </div>
+  <div className="postActions"></div>
           </div>
-          <div className="mainFeed">
-            <div className="postForm" style={{ margin: 'auto', width: '50%', backgroundColor: '#333', padding: '20px', borderRadius: '10px', marginTop: '20px', color: 'white' }}>
-              <textarea
-                placeholder="What's on your mind?"
-                value={newPostContent}
-                onChange={(e) => setNewPostContent(e.target.value)}
-                style={{ width: '100%', marginBottom: '10px', color: 'black' }}
-              />
-              <button onClick={handleCreatePost}>Post</button>
-            </div>
-            {posts.map((post) => (
-              <div key={post.id} className="postCard">
-                <div className="postHeader">
-                  <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
-                  <div>
-                    <p className="username" style={{ color: 'black', textAlign: 'center' }}>{post.username}</p>
-                    <p className="timestamp" style={{ color: 'black', textAlign: 'center' }}>{post.timestamp}</p>
-                  </div>
-                </div>
-                <div className="postContent" style={{ backgroundColor: '#333', padding: '20px', borderRadius: '10px', color: 'white', textAlign: 'center', margin: '10px 0' }}>
-                  <p>{post.content}</p>
-                </div>
-                <div className="postActions"></div>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+  {/* Footer */}
+  <footer style={{ backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center', marginTop: '440px'}}>
+    <p>Find us on GitHub:</p>
+    <a href="https://github.com/billyg04t/CollabTales" target="_blank" rel="noopener noreferrer">
+      <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style={{ width: '30px', height: '30px', margin: '5px' }} />
+      GitHub Repository
+    </a>
+  </footer>
+</div>
+);
 };
 export default Dashboard;
