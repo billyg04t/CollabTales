@@ -44,8 +44,8 @@ const Dashboard = () => {
   return (
     <div>
     {/* CollabTales Title and Navbar */}
-    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
-      <div>
+    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed' }}>
+  <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
         {/* Updated h1 element without a link */}
         <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
           <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
@@ -53,29 +53,26 @@ const Dashboard = () => {
           </h1>
         </div>
         {/* Navbar with login/signup buttons */}
-        <nav className="navbar">
-          <Link to="/" className="navLink">Home</Link>
-          <Link to="/User" className="profile navLink ">Profile</Link>
-          {/* Logout button */}
-          <div className="authButton">
-            {isLoggedIn ? (
-              <button onClick={handleLogout}>Logout</button>
-            ) : (
-              <>
-                <Link to="/" className="navLink">Logout</Link>
-              </>
-            )}
-          </div>
-        </nav>
+        <nav className="navbar" style={{ backgroundColor: '#333' }}>
+    <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
+    <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
+
+       {/* Logout button */}
+    <div className="authButton">
+      {isLoggedIn ? (
+        <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
+      ) : (
+        <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
+      )}
+    </div>
+  </nav>
       </div>
 
-        {/* Main Content Area */}
-        <div className="mainContent">
-          <div className="contentWrapper">
-            <div className="leftSidebar">
-              {/* Calendar component */}
-              <MyCalendar />
-            </div>
+      <div className="mainContent">
+    <div className="contentWrapper">
+      <div className="leftSidebar" style={{ backgroundColor: '#333', color: 'white' }}>
+        <MyCalendar />
+      </div>
 
             <div className="mainFeed">             
              {/* Display Recent Stories */}
@@ -87,6 +84,14 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+       {/* Footer */}
+  <footer style={{ backgroundColor: '#333', color: 'white', padding: '10px', textAlign: 'center', marginTop: '440px'}}>
+    <p>Find us on GitHub:</p>
+    <a href="https://github.com/billyg04t/CollabTales" target="_blank" rel="noopener noreferrer">
+      <img src="https://github.githubassets.com/assets/GitHub-Mark-ea2971cee799.png" alt="GitHub" style={{ width: '30px', height: '30px', margin: '5px' }} />
+      GitHub Repository
+    </a>
+  </footer>
     </div>
   );
 };
