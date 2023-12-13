@@ -25,8 +25,6 @@ const StoryForm = () => {
             title: storyTitle,
             content: storyContent,
             genre: storyGenre,
-            username: Auth.getProfile().authenticatedPerson.username,
-
           },
         });
   

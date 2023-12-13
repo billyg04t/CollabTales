@@ -8,7 +8,7 @@ import { GET_STORY } from '../utils/queries';
 const SingleStory = () => {
   const { storyId } = useParams();
   const { loading, data } = useQuery(GET_STORY, {
-    variables: { id: storyId },
+    variables: { storyId },
   });
 
   const story = data?.story || {};
@@ -35,7 +35,7 @@ const SingleStory = () => {
             lineHeight: '1.5',
           }}
         >
-          {story.storyText}
+          {story.content}
         </blockquote>
       </div>
 

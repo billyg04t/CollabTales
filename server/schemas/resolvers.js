@@ -9,11 +9,7 @@ const resolvers = {
     getUser: async (_, { userId }) => User.findById(userId),
     getContribution: async (_, { contributionId }) => Contribution.findById(contributionId),
     getStory: async (_, { storyId }) => {
-      const story = await Story.findById(storyId).populate('author').populate({
-        path: 'contributions',
-        populate: { path: 'author' }
-      });
-
+      const story = await Story.findById(storyId);
       return story;
     },
 

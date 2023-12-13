@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 
 import { ADD_CONTRIBUTION } from '../../utils/mutations';
 
-const ContributionForm = ({ thoughtId }) => {
+const ContributionForm = ({ storyId }) => {
   const [contributionText, setContributionText] = useState('');
   const [characterCount, setCharacterCount] = useState(0);
 
@@ -14,7 +14,7 @@ const ContributionForm = ({ thoughtId }) => {
 
     try {
       const { data } = await addContribution({
-        variables: { thoughtId, contributionText },
+        variables: { storyId, contributionText },
       });
 
       setContributionText('');
