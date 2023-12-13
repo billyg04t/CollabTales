@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       },
       {
 
-        path: '/story/:storyId', // Add a dynamic route parameter for storyId
+        path: '/stories/:storyId', // Add a dynamic route parameter for storyId
         element: <SingleStory />
       },
       {

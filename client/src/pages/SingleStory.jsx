@@ -8,7 +8,7 @@ import { GET_STORY } from '../utils/queries';
 const SingleStory = () => {
   const { storyId } = useParams();
   const { loading, data } = useQuery(GET_STORY, {
-    variables: { storyId: storyId },
+    variables: { id: storyId },
   });
 
   const story = data?.story || {};
