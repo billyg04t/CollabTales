@@ -37,7 +37,7 @@ const Profile = () => {
       </h4>
     );
   }
-
+  
   return (
     <div>
       {/* Navbar with login/signup buttons */}
@@ -90,4 +90,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default User;
