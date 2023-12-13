@@ -47,7 +47,7 @@ const typeDefs = `
     updateUser(id: ID!, username: String, email: String, password: String): User
     addStory(title: String!, content: String!, genre: String!, username: String): Story
     updateStory(id: ID!, title: String, content: String, genre: String): Story
-    addContribution(storyId: ID!, content: String!): Contribution
+    addContribution(storyId: ID!, content: String): Contribution
     login(email: String!, password: String!): AuthPayload
     # Add other mutations as needed
   
