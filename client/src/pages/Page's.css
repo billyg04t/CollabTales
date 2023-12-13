@@ -329,29 +329,6 @@ a {
     display: flex; /* Show the dropdown menu when mobileMenuOpen is true */
   }
 }
-      /* {Form to create a new story}
-      <div>
-        <h2>Create a New Story:</h2>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
-        </label>
-        <button onClick={handleCreateStory} disabled={createStoryLoading}>
-          {createStoryLoading ? 'Creating...' : 'Create Story'}
-        </button>
-      </div>
+/* This is the user css */
 
-      {/* Links to user profile and liked stories */
-      /* <div>
-        <h2>User Options:</h2>
-        <Link to="/profile">View Your Profile</Link>
-        <br />
-      </div>
-    </div>
-  </div>
-  );
-}; 
+    
