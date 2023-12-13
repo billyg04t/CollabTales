@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-
-import { CREATE_STORY } from '../../utils/mutations';
-import { QUERY_STORIES, QUERY_ME } from '../../utils/queries';
+import { ADD_STORY } from '../../utils/mutations';
+import { GET_RECENT_STORIES, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
 const StoryForm = () => {
   const [storyTitle, setStoryTitle] = useState('');
   const [storyContent, setStoryContent] = useState('');
-
-  const [addStory, { error }] = useMutation(CREATE_STORY, {
-    refetchQueries: [QUERY_STORIES, 'getStories', QUERY_ME, 'me'],
+  const [storyGenre, setStoryGenre] = useState('');
+  
+  const [addStory, { error }] = useMutation(ADD_STORY, {
+    refetchQueries: [GET_RECENT_STORIES, 'getStories', QUERY_ME, 'me'],
   });
 
   const handleFormSubmit = async (event) => {
@@ -22,11 +22,15 @@ const StoryForm = () => {
         variables: {
           title: storyTitle,
           content: storyContent,
+          genre: storyGenre,
         },
       });
 
-      setStoryTitle('');
-      setStoryContent('');
+      if (data && data.addStory) {
+        setStoryTitle('');
+        setStoryContent('');
+        setStoryGenre('');
+      }
     } catch (err) {
       console.error(err);
     }
@@ -39,6 +43,8 @@ const StoryForm = () => {
       setStoryTitle(value);
     } else if (name === 'storyContent') {
       setStoryContent(value);
+    } else if (name === 'storyGenre') {
+      setStoryGenre(value);
     }
   };
 
@@ -58,6 +64,17 @@ const StoryForm = () => {
                 name="storyTitle"
                 placeholder="Enter the title of your story..."
                 value={storyTitle}
+                className="form-input w-100"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="col-12">
+              <input
+                type="text"
+                name="storyGenre"
+                placeholder="Enter the genre of your story..."
+                value={storyGenre}
                 className="form-input w-100"
                 onChange={handleChange}
               />
@@ -85,7 +102,7 @@ const StoryForm = () => {
 
             {error && (
               <div className="col-12 my-3 bg-danger text-white p-3">
-                {error.message}
+                Error: {error.message}
               </div>
             )}
           </form>

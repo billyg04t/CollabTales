@@ -8,6 +8,7 @@ import CollabTale from './components/CollabTale.jsx';
 import Signup from './pages/SignUp.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import User from './pages/User.jsx'
+import SingleStory from './pages/SingleStory.jsx';  // Import the new page
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/User',
         element: <User />
+      },
+      {
+        path: '/story/:storyId', // Add a dynamic route parameter for storyId
+        element: <SingleStory />
       },
     ],
   },
