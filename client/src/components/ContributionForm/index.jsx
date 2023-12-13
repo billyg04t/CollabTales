@@ -26,7 +26,7 @@ const ContributionForm = ({ storyId }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'contributionText' && value.length <= 280) {
+    if (name === 'contributionText' && value.length > 280) {
       setContributionText(value);
       setCharacterCount(value.length);
     }
