@@ -71,7 +71,6 @@ return (
   <nav className="navbar" style={{ backgroundColor: '#333' }}>
     <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
     <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
-
     {/* Logout button */}
     <div className="authButton">
       {isLoggedIn ? (

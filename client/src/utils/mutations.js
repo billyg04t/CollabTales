@@ -59,20 +59,22 @@ export const ADD_USER = gql`
 `;
 
 // Mutation for creating a new story
-export const CREATE_STORY = gql`
-  mutation createStory($title: String!, $content: String!, $genre: String!) {
-    createStory(input: { title: $title, content: $content, genre: $genre }) {
+export const ADD_STORY = gql`
+mutation AddStory($title: String!, $content: String!, $genre: String!) {
+  addStory(title: $title, content: $content, genre: $genre) {
+    _id
+    title
+    content
+    genre
+    created_at
+    author {
       _id
-      title
-      content
-      genre
-      created_at
-      author {
-        _id
-        username
-      }
+      username
+      __typename
     }
+    __typename
   }
+}
 `;
 
 
