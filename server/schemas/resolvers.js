@@ -16,13 +16,18 @@ const resolvers = {
 
       return story;
     },
+
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
       }
       throw AuthenticationError;
     },
-    hello: () => "Hello, world!",
+    recentStories: async () => {
+      // Assuming you have a "created_at" field in your Story model
+      const recentStories = await Story.find().sort({ created_at: -1 }).limit(10);
+      return recentStories;
+    },  
   },
 
   Mutation: {
@@ -72,19 +77,29 @@ if (!correctPw) {
 
       throw new AuthenticationError('User not authenticated');
     },
-    createStory: async (_, { title, content }, context) => {
-      if (context.user) {
-        const story = await Story.create({
-          title,
-          content,
-          author: context.user.id,
-        });
+    addStory: async (_, { title, content, genre }, context) => {
+      try {
+        if (context.user) {
+          // Use the authenticated user's ID as the authorId
+          const authorId = context.user.id;
 
-        return story;
+          const story = await Story.create({
+            title,
+            content,
+            genre,
+            author: authorId, // Set the author field to the user's ID
+          });
+
+          return story;
+        } else {
+          throw new AuthenticationError('User not authenticated');
+        }
+      } catch (error) {
+        console.error('Error adding story:', error);
+        throw error;
       }
-
-      throw new AuthenticationError('User not authenticated');
     },
+
     updateStory: async (_, { id, title, content }, context) => {
       if (context.user) {
         return Story.findByIdAndUpdate(
@@ -136,11 +151,13 @@ if (!correctPw) {
 
   Story: {
     contributions: async (story) => Contribution.find({ _id: { $in: story.contributions } }),
+    author: async (story) => User.findById(story.author),
+
     // Add other story-related resolvers as needed
   },
 
   Contribution: {
-    author: async (contribution) => User.findById(contribution.author),
+    author: async (contribution) => User.findById(contribution.user),
     // Add other contribution-related resolvers as needed
   },
 };

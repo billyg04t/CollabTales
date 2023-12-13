@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { GET_RECENT_STORIES } from '../utils/queries';
-import { CREATE_STORY } from '../utils/mutations';
-import "./Page's.css"
+import "./Page's.css";
 import MyCalendar from './MyCalendar';
 import Navbar from './Navbar';
+import StoryList from '../components/StoryList';
+import StoryForm from '../components/StoryForm';
 
 const Dashboard = () => {
-  // Use your query for recent stories
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // You may need to clear authentication tokens or perform any necessary cleanup
-    setIsLoggedOut(false);
-  };
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [newPostContent, setNewPostContent] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [newStoryTitle, setNewStoryTitle] = useState('');
+
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
     GET_RECENT_STORIES,
     {
@@ -22,39 +21,7 @@ const Dashboard = () => {
     }
   );
 
-// Sets the navbar to login or signout stage
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggedOut, setIsLoggedOut] = useState(true);
-  const [newPostContent, setNewPostContent] = useState('');
-  const [posts, setPosts] = useState([]);
-
-  const handleCreatePost = () => {
-    // Create a new post object with the current timestamp
-    const newPost = {
-      id: Date.now(), 
-      username: 'Username', // Replace with the actual username or fetch from authentication
-      timestamp: new Date().toLocaleString(),
-      content: newPostContent,
-    };
-    setPosts([newPost, ...posts]);
-
-    setNewPostContent('');
-  };
-  const recentStories = storiesData?.recentStories || []
-  console.log(storiesData)
-
-  const [newStoryTitle, setNewStoryTitle] = useState('');
-
-  // Use the mutation hook for creating a new story
-  const [createStoryMutation, { loading: createStoryLoading }] = useMutation(
-    CREATE_STORY,
-    {
-      // Optionally, you can update the cache or refetch queries after a successful mutation
-      // update: (cache, { data: { createStory } }) => {
-      //   // Update the cache or refetch queries as needed
-      // },
-    }
-  );
+  const recentStories = storiesData?.recentStories || [];
 
   const handleCreateStory = async () => {
     try {
@@ -62,12 +29,10 @@ const Dashboard = () => {
         variables: { title: newStoryTitle },
       });
 
-
       const newStory = response.data.createStory;
 
       console.log('New story created:', newStory);
 
-      
       setNewStoryTitle('');
 
       refetchRecentStories();
@@ -106,44 +71,18 @@ const Dashboard = () => {
 
         {/* Main Content Area */}
         <div className="mainContent">
-          {/* */}
           <div className="contentWrapper">
-            {/* */}
             <div className="leftSidebar">
-            {/* Calendar component */}
-            <MyCalendar />
-          </div>
+              {/* Calendar component */}
+              <MyCalendar />
+            </div>
 
-            {/* Main Content */}
-            <div className="mainFeed">
-              {/* Create Post Form */}
-              <div className="postForm">
-                <textarea
-                  placeholder="What's on your mind?"
-                  value={newPostContent}
-                  onChange={(e) => setNewPostContent(e.target.value)}
-                />
-                <button onClick={handleCreatePost}>Post</button>
-              </div>
+            <div className="mainFeed">             
+             {/* Display Recent Stories */}
+              <StoryList stories={recentStories} />
 
-              {/* Display Posts */}
-              {posts.map((post) => (
-                <div key={post.id} className="postCard">
-                  
-                  <div className="postHeader">
-                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
-                    <div>
-                      <p className="username">{post.username}</p>
-                      <p className="timestamp">{post.timestamp}</p>
-                    </div>
-                  </div>
-                  <div className="postContent">
-                    <p>{post.content}</p>
-                  </div>
-                  <div className="postActions">
-                  </div>
-                </div>
-                 ))}
+              {/* Create Story Form */}
+              <StoryForm onCreateStory={handleCreateStory} />
             </div>
           </div>
         </div>
@@ -153,32 +92,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-// Old code idk if its useful so here it is
-
-      /* {Form to create a new story}
-      <div>
-        <h2>Create a New Story:</h2>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
-        </label>
-        <button onClick={handleCreateStory} disabled={createStoryLoading}>
-          {createStoryLoading ? 'Creating...' : 'Create Story'}
-        </button>
-      </div>
-
-      {/* Links to user profile and liked stories */
-      /* <div>
-        <h2>User Options:</h2>
-        <Link to="/profile">View Your Profile</Link>
-        <br />
-      </div>
-    </div>
-  </div>
-  );
-}; */
