@@ -7,12 +7,20 @@ import "./Page's.css"
 import MyCalendar from './MyCalendar';
 import Weather from './WeatherWidge';
 import Navbar from './Navbar';
-import Auth from '../utils/auth';
 
 const Dashboard = () => {
-  // Use your query for recent stories
-  const handleLogout = () => {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
+    setIsLoggedIn(true);
     setIsLoggedOut(false);
+  };
+
+  const handleLogout = () => {
+    setLoggedInUser(null);
+    setIsLoggedIn(false);
+    setIsLoggedOut(true);
   };
   
   const { loading: storiesLoading, data: storiesData, refetch: refetchRecentStories } = useQuery(
@@ -27,27 +35,18 @@ const Dashboard = () => {
   const [isLoggedOut, setIsLoggedOut] = useState(true);
   const [newPostContent, setNewPostContent] = useState('');
   const [posts, setPosts] = useState([]);
-console.log(Auth.getProfile())
-console.log(Auth.getProfile().username)
-console.log(Auth.getProfile().authenticatedPerson)
-  const handleCreatePost = () => {
-    if (Auth.loggedIn()) {
-      const username = Auth.getProfile().authenticatedPerson.username;
 
-      // Create a new post object with the current timestamp and actual username
-      const newPost = {
-        id: Date.now(),
-        username: username,
-        timestamp: new Date().toLocaleString(),
-        content: newPostContent,
-      };
-      
-      setPosts([newPost, ...posts]);
-      setNewPostContent('');
-    } else {
-      // Handle the case where the user is not logged in
-      console.error('User is not logged in');
-    }
+  const handleCreatePost = () => {
+    // Create a new post object with the current timestamp
+    const newPost = {
+      id: Date.now(), 
+      username: loggedInUser.username, 
+      timestamp: new Date().toLocaleString(),
+      content: newPostContent,
+    };
+    setPosts([newPost, ...posts]);
+
+    setNewPostContent('');
   };
   const recentStories = storiesData?.recentStories || []
   console.log(storiesData)
@@ -96,7 +95,7 @@ console.log(Auth.getProfile().authenticatedPerson)
           {/* Navbar with login/signup buttons */}
           <nav className="navbar">
             
-            <Link to="/Dashboard" className="navLink">Home</Link>
+            <Link to="/Dashboard" className="dashboard navLink">Home</Link>
             <Link to="/User" className="profile navLink ">Profile</Link>
             
 
@@ -140,7 +139,7 @@ console.log(Auth.getProfile().authenticatedPerson)
                 <div key={post.id} className="postCard">
                   
                   <div className="postHeader">
-
+                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
                     <div>
                       <p className="username">{post.username}</p>
                       <p className="timestamp">{post.timestamp}</p>
