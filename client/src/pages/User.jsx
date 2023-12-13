@@ -39,12 +39,12 @@ const Profile = () => {
   }
 
   return (
-    <div style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
-      {/* Include the Navbar component at the top */}
+    <div>
+      {/* Navbar with login/signup buttons */}
       <Navbar />
   
-      <div className="container mt-5" style={{ backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
-        <h2 className="text-center mb-4">
+      <div className="container mt-5">
+        <h2 className="text-center mb-4" style={{ color: 'white' }}>
           Viewing {userParam ? `${user.username}'s` : 'your'} profile
         </h2>
   
@@ -81,7 +81,7 @@ const Profile = () => {
         {!userParam && (
           <div className="row justify-content-center mt-4">
             <div className="col-md-8">
-
+  
             </div>
           </div>
         )}

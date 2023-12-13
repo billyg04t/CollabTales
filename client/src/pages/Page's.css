@@ -70,4 +70,15 @@ body {
   background-position: top right;
 }
 
+/* This is the user css */
+body {
+  background-image: url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg");
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+    
+
+
 /* ... other styles ... */
+

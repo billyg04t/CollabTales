@@ -11,16 +11,18 @@ const Navbar = () => {
   
 
   return (
-    <div className="dashboardContainer" style={{ backgroundColor: 'rgb(232, 236, 195)' }}>
+    <div className="dashboardContainer" style={{ backgroundColor: '#333' }}>
       <div>
         {/* Updated h1 element without a link */}
-        <h1 className="collabTalesHeader">CollabTales</h1>
-
+        <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
+          CollabTales
+        </h1>
+  
         {/* Navbar with login/signup buttons */}
         <nav className="navbar">
           <Link to="/dashboard" className="dashboard navLink">Home</Link>
           <Link to="/user" className="profile navLink">Profile</Link>
-
+  
           {/* Logout button */}
           <div className="authButton">
             {isLoggedIn ? (
