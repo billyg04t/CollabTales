@@ -51,7 +51,7 @@ const MyCalendar = () => {
             events={events || []}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 300 }}
+            style={{ height: 200, }}
             components={{
               toolbar: CustomToolbar,
             }}

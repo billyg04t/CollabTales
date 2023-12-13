@@ -42,43 +42,50 @@ const Signup = () => {
       console.error('Error during signup:', error.message);
     }
   };
-
-  return (
-    <div className="off-white-background d-flex align-items-center justify-content-center vh-100">
-      <div className="card card-rounded w-50">
-        <div className="card-header bg-dark text-center">
-          <h1>Signup</h1>
-          <div>
-            <label>
-              Username:
-              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <label>
-               Email:
-              <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-            </label>
-            <label>
-              Password:
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <label>
-              Confirm Password:
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </label>
-            <button className="btn btn-success" onClick={handleSignup} disabled={loading}>
-              {loading ? 'Signing up...' : 'Sign Up'}
-             </button>
-          </div>
-          <p>
-            Already have an account? <Link to="/">Log In</Link>
-          </p>
+  
+return (
+<div className="off-white-background d-flex align-items-center justify-content-center vh-100">
+  <div className="w-25"> {/* Adjusted width here */}
+    <div className="card-body bg-dark text-center rounded" style={{ paddingTop: '30px', paddingBottom: '30px' }}>
+      <h1 className="card-title" style={{ color: 'white' }}>Signup</h1>
+      <div className="form-container" style={{ padding: '20px' }}>
+        <div className="d-flex flex-column">
+          <label className="text-white">
+            Username:
+            <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} />
+          </label>
+          <label className="text-white">
+            Email:
+            <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
+          </label>
+        </div>
+        <div className="d-flex flex-column">
+          <label className="text-white">
+            Password:
+            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+          </label>
+          <label className="text-white">
+            Confirm Password:
+            <input
+              type="password"
+              className="form-control"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </label>
+        </div>
+        <div className="mt-3">
+          <button className="btn btn-success rounded-pill" onClick={handleSignup} disabled={loading}>
+            {loading ? 'Signing up...' : 'Sign Up'}
+          </button>
         </div>
       </div>
+      <p style={{ color: 'white', marginTop: '20px' }}>
+        Already have an account? <Link to="/">Log In</Link>
+      </p>
     </div>
+  </div>
+</div>
   );
 };
 

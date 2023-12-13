@@ -19,15 +19,15 @@ const Navbar = () => {
   
         {/* Navbar with login/signup buttons */}
         <nav className="navbar">
-          <Link to="/" className="navLink">Home</Link>
-          <Link to="/user" className="profile navLink">Profile</Link>
+          <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
+          <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
   
           {/* Logout button */}
           <div className="authButton">
             {isLoggedIn ? (
               <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
             ) : (
-              <Link to="/" className="navLink">Logout</Link>
+              <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
             )}
           </div>
         </nav>

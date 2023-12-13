@@ -61,71 +61,57 @@ const Dashboard = () => {
       console.error('Error creating a new story:', error);
     }
   };
+
   return (
-    <div>
-    {/* CollabTales Title and Navbar */}
-    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', backgroundColor: 'rgb(232, 236, 195)', minHeight: '100vh' }}>
-      <div>
-        {/* Updated h1 element without a link */}
-        <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
-          <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
-            CollabTales
-          </h1>
-        </div>
-        {/* Navbar with login/signup buttons */}
-        <nav className="navbar">
-          <Link to="/" className="navLink">Home</Link>
-          <Link to="/User" className="profile navLink ">Profile</Link>
-          {/* Logout button */}
-          <div className="authButton">
-            {isLoggedIn ? (
-              <button onClick={handleLogout}>Logout</button>
-            ) : (
-              <>
-                <Link to="/" className="navLink">Logout</Link>
-              </>
-            )}
-          </div>
-        </nav>
+    <div className="dashboardContainer" style={{ backgroundImage: 'url("https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg")', backgroundSize: 'cover', background: 'fixed'}}>
+      <div className="collabTalesTitleContainer" style={{ backgroundColor: '#333', padding: '10px' }}>
+        <h1 className="collabTalesHeader" style={{ fontFamily: "'Frank Ruhl Libre', italic", fontWeight: 'bold', color: 'white' }}>
+          CollabTales
+        </h1>
       </div>
-        {/* Main Content Area */}
-        <div className="mainContent">
-          {/* */}
-          <div className="contentWrapper">
-            {/* */}
-            <div className="leftSidebar">
-            {/* Calendar component */}
+      <nav className="navbar" style={{ backgroundColor: '#333' }}>
+        <Link to="/dashboard" className="navLink" style={{ color: 'white' }}>Home</Link>
+        <Link to="/user" className="profile navLink" style={{ color: 'white' }}>Profile</Link>
+  
+        {/* Logout button */}
+        <div className="authButton">
+          {isLoggedIn ? (
+            <button onClick={handleLogout} style={{ backgroundColor: 'transparent', color: 'white', border: 'none', cursor: 'pointer' }}>Logout</button>
+          ) : (
+            <Link to="/" className="navLink" style={{ color: 'white' }}>Logout</Link>
+          )}
+        </div>
+      </nav>
+      <div className="mainContent">
+        <div className="contentWrapper">
+          <div className="leftSidebar" style={{ backgroundColor: '#333', color: 'white' }}>
             <MyCalendar />
           </div>
-            {/* Main Content */}
-            <div className="mainFeed">
-              {/* Create Post Form */}
-              <div className="postForm">
-                <textarea
-                  placeholder="What's on your mind?"
-                  value={newPostContent}
-                  onChange={(e) => setNewPostContent(e.target.value)}
-                />
-                <button onClick={handleCreatePost}>Post</button>
-              </div>
-              {/* Display Posts */}
-              {posts.map((post) => (
-                <div key={post.id} className="postCard">
-                  <div className="postHeader">
-                    <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
-                    <div>
-                      <p className="username">{post.username}</p>
-                      <p className="timestamp">{post.timestamp}</p>
-                    </div>
-                  </div>
-                  <div className="postContent">
-                    <p>{post.content}</p>
-                  </div>
-                  <div className="postActions">
+          <div className="mainFeed">
+            <div className="postForm" style={{ margin: 'auto', width: '50%', backgroundColor: '#333', padding: '20px', borderRadius: '10px', marginTop: '20px', color: 'white' }}>
+              <textarea
+                placeholder="What's on your mind?"
+                value={newPostContent}
+                onChange={(e) => setNewPostContent(e.target.value)}
+                style={{ width: '100%', marginBottom: '10px', color: 'black' }}
+              />
+              <button onClick={handleCreatePost}>Post</button>
+            </div>
+            {posts.map((post) => (
+              <div key={post.id} className="postCard">
+                <div className="postHeader">
+                  <img src="profile-picture.jpg" alt="User Avatar" className="avatar" />
+                  <div>
+                    <p className="username" style={{ color: 'black', textAlign: 'center' }}>{post.username}</p>
+                    <p className="timestamp" style={{ color: 'black', textAlign: 'center' }}>{post.timestamp}</p>
                   </div>
                 </div>
-                 ))}
-            </div>
+                <div className="postContent" style={{ backgroundColor: '#333', padding: '20px', borderRadius: '10px', color: 'white', textAlign: 'center', margin: '10px 0' }}>
+                  <p>{post.content}</p>
+                </div>
+                <div className="postActions"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -133,59 +119,3 @@ const Dashboard = () => {
   );
 };
 export default Dashboard;
-// Old code idk if its useful so here it is
-      /* {Form to create a new story}
-      <div>
-        <h2>Create a New Story:</h2>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
-        </label>
-        <button onClick={handleCreateStory} disabled={createStoryLoading}>
-          {createStoryLoading ? 'Creating...' : 'Create Story'}
-        </button>
-      </div>
-      {/* Links to user profile and liked stories */
-      /* <div>
-        <h2>User Options:</h2>
-        <Link to="/profile">View Your Profile</Link>
-        <br />
-      </div>
-    </div>
-  </div>
-  );
-};
-
-
-// Old code idk if its useful so here it is
-
-      /* {Form to create a new story}
-      <div>
-        <h2>Create a New Story:</h2>
-        <label>
-          Title:
-          <input
-            type="text"
-            value={newStoryTitle}
-            onChange={(e) => setNewStoryTitle(e.target.value)}
-          />
-        </label>
-        <button onClick={handleCreateStory} disabled={createStoryLoading}>
-          {createStoryLoading ? 'Creating...' : 'Create Story'}
-        </button>
-      </div>
-
-      {/* Links to user profile and liked stories */
-      /* <div>
-        <h2>User Options:</h2>
-        <Link to="/profile">View Your Profile</Link>
-        <br />
-      </div>
-    </div>
-  </div>
-  );
-}; */
