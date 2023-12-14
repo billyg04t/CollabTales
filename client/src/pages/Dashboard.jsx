@@ -70,9 +70,9 @@ const Dashboard = () => {
   
       <div className="mainContent" style={{ flex: '1', marginTop: '0' }}>
         <div className="contentWrapper" style={{ display: 'flex' }}>
-        <div className="leftSidebar" style={{ backgroundColor: '#555', color: 'white', width: '400px', padding: '10px', marginRight: '10px', border: '2px solid white' }}>
-            <MyCalendar />
-          </div>
+        <div className="leftSidebar" style={{ backgroundColor: '#555', color: 'white', width: '400px', padding: '10px', marginRight: '10px', border: '2px solid white', overflow: 'hidden', maxHeight: '225px'}}>
+  <MyCalendar />
+</div>
           <div className="mainFeed" style={{ flex: '1' }}>
             {/* Display Recent Stories */}
             <StoryList stories={recentStories} />

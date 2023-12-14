@@ -104,3 +104,11 @@ body {
   padding: 10px;
 }
 
+
+.currentDay {
+  color: black; /* Set the text color to black */
+}
+.rbc-date-cell.rbc-now.rbc-current {
+  color: black;
+}
+
