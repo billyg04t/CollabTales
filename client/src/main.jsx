@@ -10,7 +10,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import User from './pages/User.jsx'
 import SingleStory from './pages/SingleStory.jsx';  // Import the new page
 
-import Footer from './components/Footer.jsx'
+import Footer from './components/footer.jsx'
 
 const router = createBrowserRouter([
   {
