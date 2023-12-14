@@ -8,7 +8,7 @@ const StoryList = ({ stories }) => {
       {stories.length ? (
         <div>
           {stories.map((story) => (
-            <div key={story._id} className="card mb-3">
+            <div key={story._id} className="card mb-3 justfy-space-between-md mr-3">
               <div className="card-header bg-primary text-light p-2 m-0">
                 <Link
                   className="text-light"
