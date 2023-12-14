@@ -8,6 +8,7 @@ const typeDefs = `
   }
 
   type Contribution {
+    _id: ID!
     user: User
     content: String
     created_at: Date
